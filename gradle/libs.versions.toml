@@ -33,7 +33,7 @@ gradle-version = "7.4.2"
 # https://github.com/JLLeitschuh/ktlint-gradle/releases
 ktlint = "11.3.1"
 
-kotlin = "1.7.0"
+kotlin = "1.8.10"
 
 [libraries]
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
