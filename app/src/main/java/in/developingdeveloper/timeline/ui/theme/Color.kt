@@ -1,4 +1,5 @@
 @file:Suppress("MagicNumber")
+
 package `in`.developingdeveloper.timeline.ui.theme
 
 import androidx.compose.ui.graphics.Color

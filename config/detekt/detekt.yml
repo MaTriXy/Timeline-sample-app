@@ -341,7 +341,7 @@ naming:
     ignoreOverridden: true
   InvalidPackageDeclaration:
     active: true
-    rootPackage: ''
+    rootPackage: '`in`'
     requireRootInDeclaration: false
   LambdaParameterNaming:
     active: false
