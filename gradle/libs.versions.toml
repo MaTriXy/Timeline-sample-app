@@ -26,6 +26,9 @@ espresso = "3.5.1"
 # top-level plugins
 gradle-version = "7.4.2"
 
+# https://github.com/JLLeitschuh/ktlint-gradle/releases
+ktlint = "11.3.1"
+
 kotlin = "1.7.0"
 
 [libraries]
@@ -53,3 +56,4 @@ android-application = { id = "com.android.application", version.ref = "gradle-ve
 android-library = { id = "com.android.library", version.ref = "gradle-version" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
