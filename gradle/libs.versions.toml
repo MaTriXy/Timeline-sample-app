@@ -24,6 +24,10 @@ androidx-test = "1.1.5"
 espresso = "3.5.1"
 
 # top-level plugins
+
+# https://github.com/detekt/detekt/releases
+detekt = "1.22.0"
+
 gradle-version = "7.4.2"
 
 # https://github.com/JLLeitschuh/ktlint-gradle/releases
@@ -54,6 +58,7 @@ compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", versi
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle-version" }
 android-library = { id = "com.android.library", version.ref = "gradle-version" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
