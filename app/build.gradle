@@ -29,6 +29,7 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -74,6 +75,8 @@ dependencies {
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.tooling
+
+    coreLibraryDesugaring libs.desugaring
 }
 
 kapt {

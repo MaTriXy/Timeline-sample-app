@@ -17,6 +17,9 @@ material-icons-extended = "1.4.1"
 # https://github.com/google/dagger/releases
 hilt = "2.44"
 
+# https://developer.android.com/studio/write/java8-support
+desugaring = "2.0.0"
+
 # https://github.com/junit-team/junit4/releases
 junit = "4.13.2"
 
@@ -62,6 +65,8 @@ compose-ui-test-junit = { group = "androidx.compose.ui", name = "ui-test-junit4"
 
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
+
+desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugaring" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle-version" }
