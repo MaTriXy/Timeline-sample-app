@@ -9,11 +9,13 @@ lifecycle = "2.6.1"
 
 # https://github.com/material-components/material-components-android/releases
 material = "1.6.0-alpha02"
-
 # https://developer.android.com/jetpack/androidx/releases/compose-material3
 material3 = "1.1.0-beta02"
 #  https://developer.android.com/jetpack/androidx/releases/compose-material
 material-icons-extended = "1.4.1"
+
+# https://github.com/google/dagger/releases
+hilt = "2.44"
 
 # https://github.com/junit-team/junit4/releases
 junit = "4.13.2"
@@ -49,6 +51,9 @@ compose-material = { group = "androidx.compose.material", name = "material", ver
 compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material-icons-extended" }
 
+hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-kapt = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 
 androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test" }
@@ -62,7 +67,8 @@ compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", versi
 android-application = { id = "com.android.application", version.ref = "gradle-version" }
 android-library = { id = "com.android.library", version.ref = "gradle-version" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
-ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "ben-manes-version"}
+ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "ben-manes-version" }
