@@ -1,6 +1,8 @@
 plugins {
     alias libs.plugins.android.application
     alias libs.plugins.kotlin.android
+    id "kotlin-kapt"
+    id "com.google.dagger.hilt.android"
 }
 
 android {
@@ -60,6 +62,10 @@ dependencies {
     implementation libs.compose.material3
     implementation libs.compose.material.icons.extended
 
+    // hilt
+    implementation libs.hilt
+    kapt libs.hilt.kapt
+
     testImplementation libs.junit
 
     androidTestImplementation libs.androidx.test.junit
@@ -68,4 +74,8 @@ dependencies {
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.tooling
+}
+
+kapt {
+    correctErrorTypes true
 }
