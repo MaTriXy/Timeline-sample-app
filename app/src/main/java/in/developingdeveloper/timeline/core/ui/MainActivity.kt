@@ -1,4 +1,4 @@
-package `in`.developingdeveloper.timeline
+package `in`.developingdeveloper.timeline.core.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
