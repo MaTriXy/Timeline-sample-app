@@ -16,9 +16,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import `in`.developingdeveloper.timeline.core.ui.theme.Gray
+import `in`.developingdeveloper.timeline.core.ui.theme.TagBackground
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 import `in`.developingdeveloper.timeline.eventlist.ui.models.UIEvent
 import java.time.LocalDateTime
@@ -42,7 +43,7 @@ fun EventListItem(event: UIEvent) {
                     color = if (isSystemInDarkTheme()) {
                         MaterialTheme.colorScheme.onSurface
                     } else {
-                        Color(0xFF808080)
+                        Gray
                     },
                     style = MaterialTheme.typography.bodySmall,
                 )
@@ -66,7 +67,7 @@ fun EventListItem(event: UIEvent) {
                             if (isSystemInDarkTheme()) {
                                 MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
                             } else {
-                                Color(0xFFEDE9E8)
+                                TagBackground
                             },
                         ),
                     )
