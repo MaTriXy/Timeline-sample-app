@@ -4,8 +4,10 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -41,11 +43,26 @@ fun EventListContent(
                 .padding(paddingValues)
                 .fillMaxSize(),
         ) {
-            EventList(
-                events = viewState.events,
-            )
+            if (viewState.loading) {
+                LoadingContent()
+            }
+
+            if (viewState.events.isNotEmpty()) {
+                EventList(
+                    events = viewState.events,
+                )
+            }
         }
     }
+}
+
+@Composable
+private fun LoadingContent(modifier: Modifier = Modifier) {
+    CircularProgressIndicator(
+        modifier = modifier
+            .fillMaxSize()
+            .wrapContentSize(),
+    )
 }
 
 @Composable
