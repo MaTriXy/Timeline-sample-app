@@ -2,6 +2,7 @@ package `in`.developingdeveloper.timeline.eventlist.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -22,6 +23,7 @@ fun EventList(
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = modifier.fillMaxSize(),
+        contentPadding = PaddingValues(16.dp),
     ) {
         items(events) { event ->
             EventListItem(event = event)
