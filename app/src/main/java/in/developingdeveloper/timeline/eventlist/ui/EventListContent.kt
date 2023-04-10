@@ -10,8 +10,10 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -47,10 +49,10 @@ fun EventListContent(
                 LoadingContent()
             }
 
-            if (viewState.events.isNotEmpty()) {
-                EventList(
-                    events = viewState.events,
-                )
+            if (viewState.events.isEmpty()) {
+                EmptyListContent()
+            } else {
+                EventListContent(events = viewState.events)
             }
         }
     }
@@ -62,6 +64,28 @@ private fun LoadingContent(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .wrapContentSize(),
+    )
+}
+
+@Composable
+private fun EmptyListContent(modifier: Modifier = Modifier) {
+    Text(
+        text = "No events found!",
+        style = MaterialTheme.typography.titleLarge,
+        modifier = modifier
+            .fillMaxSize()
+            .wrapContentSize(),
+    )
+}
+
+@Composable
+private fun EventListContent(
+    events: List<UIEvent>,
+    modifier: Modifier = Modifier,
+) {
+    EventList(
+        events = events,
+        modifier = modifier,
     )
 }
 
