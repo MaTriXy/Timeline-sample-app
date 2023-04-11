@@ -3,6 +3,7 @@ plugins {
     alias libs.plugins.kotlin.android
     id "kotlin-kapt"
     id "com.google.dagger.hilt.android"
+    alias libs.plugins.devtools
 }
 
 android {
@@ -71,6 +72,10 @@ dependencies {
     implementation libs.compose.hilt.navigation
     implementation libs.hilt
     kapt libs.hilt.kapt
+
+    // compose destinations
+    implementation libs.compose.destinations
+    ksp libs.compose.destinations.ksp
 
     testImplementation libs.junit
 
