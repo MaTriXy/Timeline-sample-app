@@ -1,4 +1,4 @@
-package `in`.developingdeveloper.timeline.ui.theme
+package `in`.developingdeveloper.timeline.core.ui.theme
 
 import android.app.Activity
 import android.os.Build

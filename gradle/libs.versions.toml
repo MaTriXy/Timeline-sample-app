@@ -6,6 +6,7 @@ androidx-core = "1.10.0"
 compose = "1.4.1"
 # https://developer.android.com/jetpack/androidx/releases/lifecycle
 lifecycle = "2.6.1"
+lifecycle-runtime-compose = "2.6.1"
 
 # https://github.com/material-components/material-components-android/releases
 material = "1.6.0-alpha02"
@@ -16,6 +17,10 @@ material-icons-extended = "1.4.1"
 
 # https://github.com/google/dagger/releases
 hilt = "2.44"
+compose-hilt-navigation = "1.0.0"
+
+# https://developer.android.com/studio/write/java8-support
+desugaring = "2.0.0"
 
 # https://github.com/junit-team/junit4/releases
 junit = "4.13.2"
@@ -43,6 +48,7 @@ compose-compiler = "1.4.4"
 [libraries]
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle-runtime-compose" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
@@ -51,6 +57,7 @@ compose-material = { group = "androidx.compose.material", name = "material", ver
 compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material-icons-extended" }
 
+compose-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "compose-hilt-navigation" }
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-kapt = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 
@@ -62,6 +69,8 @@ compose-ui-test-junit = { group = "androidx.compose.ui", name = "ui-test-junit4"
 
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
+
+desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugaring" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle-version" }

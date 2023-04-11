@@ -1,4 +1,4 @@
-package `in`.developingdeveloper.timeline
+package `in`.developingdeveloper.timeline.core
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
