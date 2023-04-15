@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
 import `in`.developingdeveloper.timeline.add.event.ui.components.FormInput
 import `in`.developingdeveloper.timeline.add.event.ui.components.OccurredOnInput
+import `in`.developingdeveloper.timeline.add.event.ui.components.TagsInput
 import `in`.developingdeveloper.timeline.add.event.ui.models.NewEventForm
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineOutlinedTextField
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
@@ -47,6 +48,8 @@ fun AddEventForm(
             onValueChange = onOccurredOnValueChange,
             enabled = form.formEnabled,
         )
+
+        TagsInput(tags = form.tags)
     }
 }
 
