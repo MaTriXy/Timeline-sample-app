@@ -117,7 +117,7 @@ private fun Actions(
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
 private fun AddTagFormPreview() {
-    val form = NewTagForm(label = "")
+    val form = NewTagForm.Initial
 
     TimelineTheme {
         Surface {
