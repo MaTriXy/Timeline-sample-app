@@ -32,14 +32,9 @@ fun AddTagForm(
     modifier: Modifier = Modifier,
 ) {
     Column {
-        FormInput(
-            label = stringResource(id = R.string.label),
-            input = {
-                TagLabelInput(
-                    label = form.label,
-                    onLabelValueChange = onLabelValueChange,
-                )
-            },
+        TagInput(
+            form = form,
+            onLabelValueChange = onLabelValueChange,
             modifier = modifier,
         )
 
@@ -50,6 +45,24 @@ fun AddTagForm(
             onCancelClick = onCancelClick,
         )
     }
+}
+
+@Composable
+private fun TagInput(
+    form: NewTagForm,
+    onLabelValueChange: (String) -> Unit,
+    modifier: Modifier,
+) {
+    FormInput(
+        label = stringResource(id = R.string.label),
+        input = {
+            TagLabelInput(
+                label = form.label,
+                onLabelValueChange = onLabelValueChange,
+            )
+        },
+        modifier = modifier,
+    )
 }
 
 @Composable
