@@ -1,6 +1,5 @@
 package `in`.developingdeveloper.timeline.add.event.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
@@ -23,7 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
 import `in`.developingdeveloper.timeline.core.ui.components.FormInput
-import `in`.developingdeveloper.timeline.core.ui.theme.TagBackground
+import `in`.developingdeveloper.timeline.core.ui.components.tag.TagLabel
 
 @Composable
 fun TagsInput(
@@ -79,13 +78,7 @@ private fun Tags(
             .padding(12.dp),
     ) {
         tags.forEach {
-            Text(
-                text = it,
-                modifier = Modifier
-                    .padding(4.dp)
-                    .background(TagBackground, RoundedCornerShape(28.dp))
-                    .padding(horizontal = 20.dp, vertical = 2.dp),
-            )
+            TagLabel(label = it)
         }
     }
 }
