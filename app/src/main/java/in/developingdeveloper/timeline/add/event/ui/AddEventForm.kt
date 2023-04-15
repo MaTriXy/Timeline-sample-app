@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,6 +15,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
+import `in`.developingdeveloper.timeline.add.event.ui.components.FormInput
 import `in`.developingdeveloper.timeline.add.event.ui.components.OccurredOnInput
 import `in`.developingdeveloper.timeline.add.event.ui.models.NewEventForm
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineOutlinedTextField
@@ -33,23 +32,11 @@ fun AddEventForm(
         modifier = modifier
             .fillMaxWidth(),
     ) {
-        Text(
-            text = stringResource(id = R.string.title),
-            style = MaterialTheme.typography.titleMedium,
-        )
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        TimelineOutlinedTextField(
-            text = form.title,
-            onTextChange = onTitleValueChange,
+        TitleInput(
+            title = form.title,
+            onTitleValueChange = onTitleValueChange,
+            titleErrorMessage = form.titleErrorMessage,
             enabled = form.formEnabled,
-            errorMessage = form.titleErrorMessage,
-            keyboardOptions = KeyboardOptions.Default.copy(
-                capitalization = KeyboardCapitalization.Sentences,
-                imeAction = ImeAction.Next,
-            ),
-            singleLine = true,
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -61,6 +48,41 @@ fun AddEventForm(
             enabled = form.formEnabled,
         )
     }
+}
+
+@Composable
+private fun TitleInput(
+    title: String,
+    onTitleValueChange: (String) -> Unit,
+    titleErrorMessage: String?,
+    enabled: Boolean,
+) {
+    FormInput(
+        label = stringResource(id = R.string.title),
+        input = {
+            TitleInputField(title, onTitleValueChange, titleErrorMessage, enabled)
+        },
+    )
+}
+
+@Composable
+private fun TitleInputField(
+    title: String,
+    onTitleValueChange: (String) -> Unit,
+    titleErrorMessage: String?,
+    enabled: Boolean,
+) {
+    TimelineOutlinedTextField(
+        text = title,
+        onTextChange = onTitleValueChange,
+        enabled = enabled,
+        errorMessage = titleErrorMessage,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            capitalization = KeyboardCapitalization.Sentences,
+            imeAction = ImeAction.Next,
+        ),
+        singleLine = true,
+    )
 }
 
 @Preview(

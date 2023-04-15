@@ -1,18 +1,12 @@
 package `in`.developingdeveloper.timeline.add.event.ui.components
 
-import android.util.Log
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineOutlinedTextField
 import `in`.developingdeveloper.timeline.core.utils.toEpochMilli
@@ -66,38 +59,29 @@ fun OccurredOnInput(
                     datePickerState.selectedDateMillis ?: return@OccurredOnDatePickerDialog
 
                 val selectedDate = selectedDateInMillis.toLocalDate()
-                Log.e("OccurredOnInput", "OccurredOnInput, selectedDate: $selectedDate")
                 onValueChange(selectedDate.toLocalDateTime().toString())
             },
         )
     }
 
-    Column(modifier = modifier) {
-        OccurredOnLabel()
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        OccurredOnInput(
-            value = value,
-            onValueChange = onValueChange,
-            enabled = enabled,
-            errorMessage = errorMessage,
-            openDatePickerDialog = openDatePickerDialog,
-            occurredOnInteractionSource = occurredOnInteractionSource,
-        )
-    }
-}
-
-@Composable
-private fun OccurredOnLabel() {
-    Text(
-        text = stringResource(id = R.string.occurred_on),
-        style = MaterialTheme.typography.titleMedium,
+    FormInput(
+        label = stringResource(id = R.string.occurred_on),
+        input = {
+            OccurredOnInputField(
+                value = value,
+                onValueChange = onValueChange,
+                enabled = enabled,
+                errorMessage = errorMessage,
+                openDatePickerDialog = openDatePickerDialog,
+                occurredOnInteractionSource = occurredOnInteractionSource,
+            )
+        },
+        modifier = modifier,
     )
 }
 
 @Composable
-private fun OccurredOnInput(
+private fun OccurredOnInputField(
     value: LocalDateTime,
     onValueChange: (String) -> Unit,
     enabled: Boolean,
