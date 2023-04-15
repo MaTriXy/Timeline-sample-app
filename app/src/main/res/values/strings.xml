@@ -6,4 +6,6 @@
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="tags">Tags</string>
+    <string name="label">Label</string>
+    <string name="add_tag">Add Tag</string>
 </resources>

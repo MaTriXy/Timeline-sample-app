@@ -1,4 +1,4 @@
-package `in`.developingdeveloper.timeline.add.event.ui.components
+package `in`.developingdeveloper.timeline.core.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
