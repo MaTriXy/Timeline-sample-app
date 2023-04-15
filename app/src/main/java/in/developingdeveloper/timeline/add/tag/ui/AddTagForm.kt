@@ -1,12 +1,22 @@
 package `in`.developingdeveloper.timeline.add.tag.ui
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
 import `in`.developingdeveloper.timeline.add.tag.ui.models.NewTagForm
 import `in`.developingdeveloper.timeline.core.ui.components.FormInput
@@ -17,18 +27,29 @@ import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 fun AddTagForm(
     form: NewTagForm,
     onLabelValueChange: (String) -> Unit,
+    onAddClick: () -> Unit,
+    onCancelClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    FormInput(
-        label = stringResource(id = R.string.label),
-        input = {
-            TagLabelInput(
-                label = form.label,
-                onLabelValueChange = onLabelValueChange,
-            )
-        },
-        modifier = modifier,
-    )
+    Column {
+        FormInput(
+            label = stringResource(id = R.string.label),
+            input = {
+                TagLabelInput(
+                    label = form.label,
+                    onLabelValueChange = onLabelValueChange,
+                )
+            },
+            modifier = modifier,
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Actions(
+            onAddClick = onAddClick,
+            onCancelClick = onCancelClick,
+        )
+    }
 }
 
 @Composable
@@ -42,6 +63,34 @@ private fun TagLabelInput(
         onTextChange = onLabelValueChange,
         modifier = modifier.fillMaxWidth(),
     )
+}
+
+@Composable
+private fun Actions(
+    onAddClick: () -> Unit,
+    onCancelClick: () -> Unit,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        OutlinedButton(
+            onClick = onCancelClick,
+            modifier = Modifier.weight(1f),
+        ) {
+            Text(text = stringResource(id = R.string.cancel))
+        }
+
+        Button(
+            onClick = onAddClick,
+            modifier = Modifier.weight(2f),
+        ) {
+            Text(
+                text = stringResource(id = R.string.add_tag),
+            )
+        }
+    }
 }
 
 @Preview(
@@ -62,6 +111,8 @@ private fun AddTagFormPreview() {
             AddTagForm(
                 form = form,
                 onLabelValueChange = {},
+                onAddClick = {},
+                onCancelClick = {},
             )
         }
     }
