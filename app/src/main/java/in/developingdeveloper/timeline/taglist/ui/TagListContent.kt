@@ -15,6 +15,7 @@ import `in`.developingdeveloper.timeline.core.ui.components.TimelineStartAligned
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 import `in`.developingdeveloper.timeline.taglist.ui.components.TagList
 import `in`.developingdeveloper.timeline.taglist.ui.models.TagListViewState
+import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 
 @Composable
 fun TagListContent(
@@ -46,7 +47,9 @@ fun TagListContent(
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
 private fun TagListContentPreview() {
-    val viewState = TagListViewState.Initial
+    val tags = (1..20).map { UITag("Random Tag #$it") }
+
+    val viewState = TagListViewState.Initial.copy(tags = tags)
 
     TimelineTheme {
         Surface {
