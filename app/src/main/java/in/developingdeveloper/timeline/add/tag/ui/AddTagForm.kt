@@ -31,11 +31,10 @@ fun AddTagForm(
     onCancelClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column {
+    Column(modifier = modifier) {
         TagInput(
             form = form,
             onLabelValueChange = onLabelValueChange,
-            modifier = modifier,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -51,7 +50,7 @@ fun AddTagForm(
 private fun TagInput(
     form: NewTagForm,
     onLabelValueChange: (String) -> Unit,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     FormInput(
         label = stringResource(id = R.string.label),

@@ -1,10 +1,12 @@
 package `in`.developingdeveloper.timeline.add.tag.ui
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.add.tag.ui.models.AddTagViewState
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 
@@ -21,7 +23,7 @@ fun AddTagContent(
         onLabelValueChange = onLabelValueChange,
         onAddClick = onAddClick,
         onCancelClick = onCancelClick,
-        modifier = modifier,
+        modifier = modifier.padding(16.dp),
     )
 }
 
