@@ -304,7 +304,7 @@ exceptions:
 naming:
   active: true
   BooleanPropertyNaming:
-    active: false
+    active: true
     allowedPattern: '^(is|has|are)'
     ignoreOverridden: true
   ClassNaming:
@@ -356,7 +356,7 @@ naming:
   NoNameShadowing:
     active: true
   NonBooleanPropertyPrefixedWithIs:
-    active: false
+    active: true
   ObjectPropertyNaming:
     active: true
     constantPattern: '[A-Za-z][_A-Za-z0-9]*'
