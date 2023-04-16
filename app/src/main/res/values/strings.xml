@@ -8,4 +8,5 @@
     <string name="tags">Tags</string>
     <string name="label">Label</string>
     <string name="add_tag">Add Tag</string>
+    <string name="settings">Settings</string>
 </resources>
