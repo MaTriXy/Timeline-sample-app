@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import `in`.developingdeveloper.timeline.R
+import `in`.developingdeveloper.timeline.core.ui.components.BackNavigationIcon
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineStartAlignedTopAppBar
 import `in`.developingdeveloper.timeline.core.ui.models.UiText
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
@@ -17,10 +18,18 @@ import `in`.developingdeveloper.timeline.settings.ui.components.SettingsList
 import `in`.developingdeveloper.timeline.settings.ui.models.UiSetting
 
 @Composable
-fun SettingsContent(settings: List<UiSetting>) {
+fun SettingsContent(
+    settings: List<UiSetting>,
+    onBackNavigationIconClick: () -> Unit,
+) {
     Scaffold(
         topBar = {
-            TimelineStartAlignedTopAppBar(title = stringResource(id = R.string.settings))
+            TimelineStartAlignedTopAppBar(
+                title = stringResource(id = R.string.settings),
+                navigationIcon = {
+                    BackNavigationIcon(onBackNavigationIconClick)
+                },
+            )
         },
     ) { contentPadding ->
         SettingsList(
@@ -52,7 +61,10 @@ private fun SettingsContentPreview() {
 
     TimelineTheme {
         Surface {
-            SettingsContent(settings)
+            SettingsContent(
+                settings = settings,
+                onBackNavigationIconClick = {},
+            )
         }
     }
 }
