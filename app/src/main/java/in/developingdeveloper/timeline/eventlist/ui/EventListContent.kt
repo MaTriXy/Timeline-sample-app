@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -30,11 +32,17 @@ import java.time.LocalDateTime
 fun EventListContent(
     viewState: EventListViewState,
     onAddNewEventClick: () -> Unit,
+    onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
         topBar = {
-            TimelineCenterAlignedTopAppBar(title = stringResource(id = R.string.app_name))
+            TimelineCenterAlignedTopAppBar(
+                title = stringResource(id = R.string.app_name),
+                actions = {
+                    SettingsAction(onClick = onSettingsClick)
+                },
+            )
         },
         floatingActionButton = {
             AddEventFAB(onAddNewEventClick)
@@ -55,6 +63,16 @@ fun EventListContent(
                 EventListContent(events = viewState.events)
             }
         }
+    }
+}
+
+@Composable
+private fun SettingsAction(onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        Icon(
+            imageVector = Icons.Default.Settings,
+            contentDescription = stringResource(id = R.string.settings),
+        )
     }
 }
 
@@ -129,6 +147,7 @@ private fun EventListContentPreview() {
             EventListContent(
                 viewState = viewState,
                 onAddNewEventClick = {},
+                onSettingsClick = {},
             )
         }
     }
