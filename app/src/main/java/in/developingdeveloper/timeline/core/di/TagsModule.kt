@@ -8,7 +8,7 @@ import `in`.developingdeveloper.timeline.core.domain.tags.datasources.DemoTagDat
 import `in`.developingdeveloper.timeline.core.domain.tags.datasources.TagDataSource
 import `in`.developingdeveloper.timeline.core.domain.tags.repositories.DefaultTagRepository
 import `in`.developingdeveloper.timeline.core.domain.tags.repositories.TagRepository
-import `in`.developingdeveloper.timeline.eventlist.domain.usescases.DefaultGetAllEventsUseCase
+import `in`.developingdeveloper.timeline.taglist.domain.usecases.DefaultGetAllTagsUseCase
 import `in`.developingdeveloper.timeline.taglist.domain.usecases.GetAllTagsUseCase
 import javax.inject.Singleton
 
@@ -31,6 +31,6 @@ abstract class TagsModule {
     @Binds
     @Singleton
     abstract fun bindGetAllTagsUseCase(
-        getAllEventsUseCase: DefaultGetAllEventsUseCase,
+        getAllTagsUseCase: DefaultGetAllTagsUseCase,
     ): GetAllTagsUseCase
 }
