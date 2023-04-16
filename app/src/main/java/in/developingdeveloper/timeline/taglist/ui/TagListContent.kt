@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import `in`.developingdeveloper.timeline.R
+import `in`.developingdeveloper.timeline.core.ui.components.BackNavigationIcon
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineStartAlignedTopAppBar
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 import `in`.developingdeveloper.timeline.taglist.ui.components.TagList
@@ -20,10 +21,16 @@ import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 @Composable
 fun TagListContent(
     viewState: TagListViewState,
+    onNavigationIconClick: () -> Unit,
 ) {
     Scaffold(
         topBar = {
-            TimelineStartAlignedTopAppBar(title = stringResource(id = R.string.tags))
+            TimelineStartAlignedTopAppBar(
+                title = stringResource(id = R.string.tags),
+                navigationIcon = {
+                    BackNavigationIcon(onNavigationIconClick)
+                },
+            )
         },
     ) { contentPadding ->
         Column(
@@ -53,7 +60,10 @@ private fun TagListContentPreview() {
 
     TimelineTheme {
         Surface {
-            TagListContent(viewState)
+            TagListContent(
+                viewState = viewState,
+                onNavigationIconClick = {},
+            )
         }
     }
 }

@@ -5,11 +5,19 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import `in`.developingdeveloper.timeline.core.ui.components.onBackNavigationIconClick
 
 @Composable
 @Destination
-fun TagListScreen(viewModel: TagListViewModel = hiltViewModel()) {
+fun TagListScreen(
+    navigator: DestinationsNavigator,
+    viewModel: TagListViewModel = hiltViewModel(),
+) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
-    TagListContent(viewState = viewState)
+    TagListContent(
+        viewState = viewState,
+        onNavigationIconClick = { onBackNavigationIconClick(navigator) },
+    )
 }
