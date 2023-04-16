@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import `in`.developingdeveloper.timeline.core.domain.tags.datasources.DemoTagDataSource
 import `in`.developingdeveloper.timeline.core.domain.tags.datasources.TagDataSource
+import `in`.developingdeveloper.timeline.core.domain.tags.repositories.DefaultTagRepository
+import `in`.developingdeveloper.timeline.core.domain.tags.repositories.TagRepository
 import javax.inject.Singleton
 
 @Module
@@ -17,4 +19,10 @@ abstract class TagsModule {
     abstract fun bindTagDataSource(
         tagDataSource: DemoTagDataSource,
     ): TagDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindTagRepository(
+        tagRepository: DefaultTagRepository,
+    ): TagRepository
 }
