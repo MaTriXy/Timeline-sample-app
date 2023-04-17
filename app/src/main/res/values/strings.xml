@@ -8,4 +8,6 @@
     <string name="tags">Tags</string>
     <string name="label">Label</string>
     <string name="add_tag">Add Tag</string>
+    <string name="settings">Settings</string>
+    <string name="navigate_back">Navigate back</string>
 </resources>

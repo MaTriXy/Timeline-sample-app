@@ -10,11 +10,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import `in`.developingdeveloper.timeline.destinations.SettingsScreenDestination
 
 @Composable
 @Destination
 @RootNavGraph(start = true)
 fun EventListScreen(
+    navigator: DestinationsNavigator,
     modifier: Modifier = Modifier,
     viewModel: EventListViewModel = hiltViewModel(),
 ) {
@@ -31,6 +34,11 @@ fun EventListScreen(
     EventListContent(
         viewState = viewState,
         onAddNewEventClick = {},
+        onSettingsClick = { onSettingsClick(navigator) },
         modifier = modifier,
     )
+}
+
+private fun onSettingsClick(navigator: DestinationsNavigator) {
+    navigator.navigate(SettingsScreenDestination)
 }

@@ -1,7 +1,6 @@
-package `in`.developingdeveloper.timeline.taglist.ui
+package `in`.developingdeveloper.timeline.settings.ui
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -13,33 +12,32 @@ import androidx.compose.ui.tooling.preview.Preview
 import `in`.developingdeveloper.timeline.R
 import `in`.developingdeveloper.timeline.core.ui.components.BackNavigationIcon
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineStartAlignedTopAppBar
+import `in`.developingdeveloper.timeline.core.ui.models.UiText
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
-import `in`.developingdeveloper.timeline.taglist.ui.components.TagList
-import `in`.developingdeveloper.timeline.taglist.ui.models.TagListViewState
-import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
+import `in`.developingdeveloper.timeline.settings.ui.components.SettingsList
+import `in`.developingdeveloper.timeline.settings.ui.models.UiSetting
 
 @Composable
-fun TagListContent(
-    viewState: TagListViewState,
-    onNavigationIconClick: () -> Unit,
+fun SettingsContent(
+    settings: List<UiSetting>,
+    onBackNavigationIconClick: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             TimelineStartAlignedTopAppBar(
-                title = stringResource(id = R.string.tags),
+                title = stringResource(id = R.string.settings),
                 navigationIcon = {
-                    BackNavigationIcon(onNavigationIconClick)
+                    BackNavigationIcon(onBackNavigationIconClick)
                 },
             )
         },
     ) { contentPadding ->
-        Column(
+        SettingsList(
+            settings = settings,
             modifier = Modifier
                 .padding(contentPadding)
                 .fillMaxSize(),
-        ) {
-            TagList(tags = viewState.tags)
-        }
+        )
     }
 }
 
@@ -53,16 +51,19 @@ fun TagListContent(
 )
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
-private fun TagListContentPreview() {
-    val tags = (1..20).map { UITag("Random Tag #$it") }
-
-    val viewState = TagListViewState.Initial.copy(tags = tags)
+private fun SettingsContentPreview() {
+    val settings = (1..10).map {
+        UiSetting(
+            label = UiText.StringText("Label #$it"),
+            onClick = {},
+        )
+    }
 
     TimelineTheme {
         Surface {
-            TagListContent(
-                viewState = viewState,
-                onNavigationIconClick = {},
+            SettingsContent(
+                settings = settings,
+                onBackNavigationIconClick = {},
             )
         }
     }
