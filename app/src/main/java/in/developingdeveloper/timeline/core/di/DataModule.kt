@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import `in`.developingdeveloper.timeline.core.data.local.room.TimelineDatabase
+import `in`.developingdeveloper.timeline.core.data.local.tags.TagDao
 import javax.inject.Singleton
 
 @Module
@@ -19,5 +20,13 @@ object DataModule {
         @ApplicationContext context: Context,
     ): TimelineDatabase {
         return TimelineDatabase.build(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTagDao(
+        timelineDatabase: TimelineDatabase,
+    ): TagDao {
+        return timelineDatabase.tagDao()
     }
 }
