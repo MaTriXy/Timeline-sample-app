@@ -7,8 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import `in`.developingdeveloper.timeline.add.tag.domain.repositories.AddTagRepository
 import `in`.developingdeveloper.timeline.add.tag.domain.repositories.DefaultAddTagRepository
 import `in`.developingdeveloper.timeline.core.data.local.tags.RoomTagDataSource
-import `in`.developingdeveloper.timeline.core.domain.tags.datasources.DemoTagDataSource
-import `in`.developingdeveloper.timeline.core.domain.tags.datasources.TagDataSource
+import `in`.developingdeveloper.timeline.core.data.local.tags.TagDataSource
 import `in`.developingdeveloper.timeline.core.domain.tags.repositories.DefaultTagRepository
 import `in`.developingdeveloper.timeline.core.domain.tags.repositories.TagRepository
 import `in`.developingdeveloper.timeline.taglist.domain.usecases.DefaultGetAllTagsUseCase
@@ -18,12 +17,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class TagsModule {
-
-    @Binds
-    @Singleton
-    abstract fun bindTagDataSource(
-        tagDataSource: DemoTagDataSource,
-    ): TagDataSource
 
     @Binds
     @Singleton
