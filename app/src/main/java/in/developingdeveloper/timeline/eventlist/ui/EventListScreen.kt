@@ -11,7 +11,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import `in`.developingdeveloper.timeline.destinations.AddTagScreenDestination
 import `in`.developingdeveloper.timeline.destinations.SettingsScreenDestination
 
 @Composable
@@ -34,14 +33,10 @@ fun EventListScreen(
 
     EventListContent(
         viewState = viewState,
-        onAddNewEventClick = { onAddClick(navigator) },
+        onAddNewEventClick = { },
         onSettingsClick = { onSettingsClick(navigator) },
         modifier = modifier,
     )
-}
-
-fun onAddClick(navigator: DestinationsNavigator) {
-    navigator.navigate(AddTagScreenDestination)
 }
 
 private fun onSettingsClick(navigator: DestinationsNavigator) {
