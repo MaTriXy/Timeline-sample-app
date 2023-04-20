@@ -4,7 +4,13 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,8 +26,10 @@ import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 
 @Composable
 fun TagListContent(
+    snackbarHostState: SnackbarHostState,
     viewState: TagListViewState,
     onNavigationIconClick: () -> Unit,
+    onAddTagClick: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -32,6 +40,15 @@ fun TagListContent(
                 },
             )
         },
+        floatingActionButton = {
+            FloatingActionButton(onClick = onAddTagClick) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = null)
+            }
+        },
+        snackbarHost = {
+            SnackbarHost(snackbarHostState)
+        },
+
     ) { contentPadding ->
         Column(
             modifier = Modifier
@@ -61,8 +78,10 @@ private fun TagListContentPreview() {
     TimelineTheme {
         Surface {
             TagListContent(
+                snackbarHostState = SnackbarHostState(),
                 viewState = viewState,
                 onNavigationIconClick = {},
+                onAddTagClick = {},
             )
         }
     }

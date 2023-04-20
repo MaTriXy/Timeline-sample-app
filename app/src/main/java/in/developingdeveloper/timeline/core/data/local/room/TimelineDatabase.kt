@@ -10,6 +10,7 @@ import `in`.developingdeveloper.timeline.core.data.local.tags.TagDao
 @Database(
     entities = [PersistableTag::class],
     version = 1,
+    exportSchema = false,
 )
 abstract class TimelineDatabase : RoomDatabase() {
 
