@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import `in`.developingdeveloper.timeline.add.tag.domain.repositories.AddTagRepository
 import `in`.developingdeveloper.timeline.add.tag.domain.repositories.DefaultAddTagRepository
+import `in`.developingdeveloper.timeline.add.tag.domain.usecases.AddTagUseCase
+import `in`.developingdeveloper.timeline.add.tag.domain.usecases.DefaultAddTagUseCase
 import `in`.developingdeveloper.timeline.core.data.local.tags.RoomTagDataSource
 import `in`.developingdeveloper.timeline.core.data.local.tags.TagDataSource
 import `in`.developingdeveloper.timeline.core.domain.tags.repositories.DefaultTagRepository
@@ -41,4 +43,10 @@ abstract class TagsModule {
     abstract fun bindAddTagRepository(
         addTagRepository: DefaultAddTagRepository,
     ): AddTagRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindAddTagUseCase(
+        addTagUseCase: DefaultAddTagUseCase,
+    ): AddTagUseCase
 }
