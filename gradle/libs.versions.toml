@@ -25,6 +25,9 @@ desugaring = "2.0.0"
 # https://github.com/raamcosta/compose-destinations/releases
 compose-destinations = "1.8.38-beta"
 
+# https://developer.android.com/jetpack/androidx/releases/room
+room = "2.4.3"
+
 # https://github.com/junit-team/junit4/releases
 junit = "4.13.2"
 
@@ -68,6 +71,10 @@ hilt-kapt = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 
 compose-destinations = { module = "io.github.raamcosta.compose-destinations:animations-core", version.ref = "compose-destinations" }
 compose-destinations-ksp = { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "compose-destinations" }
+
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 

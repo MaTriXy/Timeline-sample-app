@@ -4,8 +4,10 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import `in`.developingdeveloper.timeline.core.domain.tags.datasources.DemoTagDataSource
-import `in`.developingdeveloper.timeline.core.domain.tags.datasources.TagDataSource
+import `in`.developingdeveloper.timeline.add.tag.domain.repositories.AddTagRepository
+import `in`.developingdeveloper.timeline.add.tag.domain.repositories.DefaultAddTagRepository
+import `in`.developingdeveloper.timeline.core.data.local.tags.RoomTagDataSource
+import `in`.developingdeveloper.timeline.core.data.local.tags.TagDataSource
 import `in`.developingdeveloper.timeline.core.domain.tags.repositories.DefaultTagRepository
 import `in`.developingdeveloper.timeline.core.domain.tags.repositories.TagRepository
 import `in`.developingdeveloper.timeline.taglist.domain.usecases.DefaultGetAllTagsUseCase
@@ -18,12 +20,6 @@ abstract class TagsModule {
 
     @Binds
     @Singleton
-    abstract fun bindTagDataSource(
-        tagDataSource: DemoTagDataSource,
-    ): TagDataSource
-
-    @Binds
-    @Singleton
     abstract fun bindTagRepository(
         tagRepository: DefaultTagRepository,
     ): TagRepository
@@ -33,4 +29,16 @@ abstract class TagsModule {
     abstract fun bindGetAllTagsUseCase(
         getAllTagsUseCase: DefaultGetAllTagsUseCase,
     ): GetAllTagsUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindTagDataSource(
+        roomTagDataSource: RoomTagDataSource,
+    ): TagDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindAddTagRepository(
+        addTagRepository: DefaultAddTagRepository,
+    ): AddTagRepository
 }
