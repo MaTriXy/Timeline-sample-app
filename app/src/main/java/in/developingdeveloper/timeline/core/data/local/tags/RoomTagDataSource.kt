@@ -2,7 +2,7 @@ package `in`.developingdeveloper.timeline.core.data.local.tags
 
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class RoomTagDataSource @Inject constructor(
@@ -12,9 +12,21 @@ class RoomTagDataSource @Inject constructor(
         tagDao.insertTag(tag.toPersistableTag())
     }
 
-    override fun getTags(): Flow<List<Tag>> {
-        return flowOf(emptyList())
+    override fun getAllTags(): Flow<List<Tag>> {
+        return tagDao.getAllTags()
+            .map(List<PersistableTag>::toTags)
     }
+}
+
+private fun List<PersistableTag>.toTags(): List<Tag> {
+    return this.map(PersistableTag::toTag)
+}
+
+private fun PersistableTag.toTag(): Tag {
+    return Tag(
+        id = this.id,
+        label = this.label,
+    )
 }
 
 private fun Tag.toPersistableTag(): PersistableTag {
