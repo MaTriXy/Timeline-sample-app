@@ -2,6 +2,7 @@ package `in`.developingdeveloper.timeline.add.tag.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
@@ -15,10 +16,15 @@ fun AddTagScreen(
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     AddTagContent(
         viewState = viewState,
         onLabelValueChange = viewModel::onLabelValueChange,
-        onAddClick = viewModel::onAddClick,
+        onAddClick = {
+            keyboardController?.hide()
+            viewModel.onAddClick()
+        },
         onCancelClick = { onCancelClick(navigator) },
     )
 }
