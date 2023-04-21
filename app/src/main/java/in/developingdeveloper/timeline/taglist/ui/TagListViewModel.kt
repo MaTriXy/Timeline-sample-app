@@ -1,6 +1,5 @@
 package `in`.developingdeveloper.timeline.taglist.ui
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,16 +31,16 @@ class TagListViewModel @Inject constructor(
     }
 
     private fun getAllTags() {
-        Log.e(javaClass.name, "getAllTags called")
         getAllTagsUseCase.invoke()
             .flowOn(Dispatchers.IO)
             .distinctUntilChanged()
             .onStart {
-                _viewState.update { it.copy(isLoading = true) }
+                _viewState.update { it.toLoading() }
             }
             .onEach { result ->
-                Log.e(javaClass.name, "getAllTags, onEach - result: $result")
-                _viewState.update { getViewStateForTagListResult(result) }
+                _viewState.update {
+                    getViewStateForTagListResult(result)
+                }
             }
             .launchIn(viewModelScope)
     }
@@ -51,11 +50,11 @@ class TagListViewModel @Inject constructor(
         return result.fold(
             onSuccess = { tags ->
                 val uiTags = tags.toUiTags()
-                currentViewState.copy(tags = uiTags, isLoading = false)
+                currentViewState.toLoaded(tags = uiTags)
             },
             onFailure = {
                 val message = it.message ?: "Something went wrong."
-                currentViewState.copy(isLoading = false, errorMessage = message)
+                currentViewState.toError(errorMessage = message)
             },
         )
     }
