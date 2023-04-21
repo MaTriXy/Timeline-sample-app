@@ -42,17 +42,10 @@ fun TagListContent(
 ) {
     Scaffold(
         topBar = {
-            TimelineStartAlignedTopAppBar(
-                title = stringResource(id = R.string.tags),
-                navigationIcon = {
-                    BackNavigationIcon(onNavigationIconClick)
-                },
-            )
+            AddTagTopBar(onNavigationIconClick)
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = onAddTagClick) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = null)
-            }
+            AddTagFloatingActionButton(onAddTagClick)
         },
         snackbarHost = {
             SnackbarHost(snackbarHostState)
@@ -89,6 +82,23 @@ fun TagListContent(
                 TagList(tags = viewState.tags)
             }
         }
+    }
+}
+
+@Composable
+private fun AddTagTopBar(onNavigationIconClick: () -> Unit) {
+    TimelineStartAlignedTopAppBar(
+        title = stringResource(id = R.string.tags),
+        navigationIcon = {
+            BackNavigationIcon(onNavigationIconClick)
+        },
+    )
+}
+
+@Composable
+private fun AddTagFloatingActionButton(onAddTagClick: () -> Unit) {
+    FloatingActionButton(onClick = onAddTagClick) {
+        Icon(imageVector = Icons.Default.Add, contentDescription = null)
     }
 }
 
