@@ -1,5 +1,6 @@
 package `in`.developingdeveloper.timeline.taglist.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +32,7 @@ class TagListViewModel @Inject constructor(
     }
 
     private fun getAllTags() {
+        Log.e(javaClass.name, "getAllTags called")
         getAllTagsUseCase.invoke()
             .flowOn(Dispatchers.IO)
             .distinctUntilChanged()
@@ -38,6 +40,7 @@ class TagListViewModel @Inject constructor(
                 _viewState.update { it.copy(isLoading = true) }
             }
             .onEach { result ->
+                Log.e(javaClass.name, "getAllTags, onEach - result: $result")
                 _viewState.update { getViewStateForTagListResult(result) }
             }
             .launchIn(viewModelScope)

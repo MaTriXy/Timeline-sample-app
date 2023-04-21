@@ -10,6 +10,6 @@ class DefaultTagRepository @Inject constructor(
 ) : TagRepository {
 
     override fun getAllTags(): Flow<List<Tag>> {
-        return tagDataSource.getTags()
+        return tagDataSource.getAllTags()
     }
 }

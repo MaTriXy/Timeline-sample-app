@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface TagDataSource {
     suspend fun insertTag(tag: Tag)
-    fun getTags(): Flow<List<Tag>>
+    fun getAllTags(): Flow<List<Tag>>
 }
