@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import `in`.developingdeveloper.timeline.core.data.local.events.EventDao
 import `in`.developingdeveloper.timeline.core.data.local.room.TimelineDatabase
 import `in`.developingdeveloper.timeline.core.data.local.tags.TagDao
 import javax.inject.Singleton
@@ -28,5 +29,13 @@ object DataModule {
         timelineDatabase: TimelineDatabase,
     ): TagDao {
         return timelineDatabase.tagDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideEventDao(
+        timelineDatabase: TimelineDatabase,
+    ): EventDao {
+        return timelineDatabase.eventDao()
     }
 }
