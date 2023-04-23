@@ -1,4 +1,4 @@
-package `in`.developingdeveloper.timeline.eventlist.domain.models
+package `in`.developingdeveloper.timeline.core.domain.event.models
 
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
 import java.time.LocalDateTime

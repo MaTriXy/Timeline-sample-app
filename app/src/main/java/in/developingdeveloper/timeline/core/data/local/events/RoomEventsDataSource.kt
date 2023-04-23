@@ -1,9 +1,9 @@
 package `in`.developingdeveloper.timeline.core.data.local.events
 
 import `in`.developingdeveloper.timeline.core.data.local.tags.PersistableTag
+import `in`.developingdeveloper.timeline.core.domain.event.models.Event
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
 import `in`.developingdeveloper.timeline.eventlist.domain.datasource.EventsDataSource
-import `in`.developingdeveloper.timeline.eventlist.domain.models.Event
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

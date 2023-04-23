@@ -1,7 +1,7 @@
 package `in`.developingdeveloper.timeline.eventlist.domain.datasource
 
+import `in`.developingdeveloper.timeline.core.domain.event.models.Event
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
-import `in`.developingdeveloper.timeline.eventlist.domain.models.Event
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDateTime
