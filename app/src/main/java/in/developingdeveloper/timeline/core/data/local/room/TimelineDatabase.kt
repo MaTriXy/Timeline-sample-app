@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import `in`.developingdeveloper.timeline.core.data.local.events.EventDao
 import `in`.developingdeveloper.timeline.core.data.local.tags.PersistableTag
 import `in`.developingdeveloper.timeline.core.data.local.tags.TagDao
@@ -13,6 +14,7 @@ import `in`.developingdeveloper.timeline.core.data.local.tags.TagDao
     version = 1,
     exportSchema = false,
 )
+@TypeConverters(LocalDateTimeTypeConvertor::class)
 abstract class TimelineDatabase : RoomDatabase() {
 
     abstract fun tagDao(): TagDao
