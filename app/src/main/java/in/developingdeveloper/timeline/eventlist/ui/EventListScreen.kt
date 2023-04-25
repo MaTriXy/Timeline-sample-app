@@ -33,7 +33,7 @@ fun EventListScreen(
 
     EventListContent(
         viewState = viewState,
-        onAddNewEventClick = { },
+        onAddEventClick = { },
         onSettingsClick = { onSettingsClick(navigator) },
         modifier = modifier,
     )
