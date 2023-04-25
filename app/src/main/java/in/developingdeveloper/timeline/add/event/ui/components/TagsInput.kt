@@ -21,12 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
+import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
 import `in`.developingdeveloper.timeline.core.ui.components.FormInput
 import `in`.developingdeveloper.timeline.core.ui.components.tag.TagLabel
 
 @Composable
 fun TagsInput(
-    tags: List<String>,
+    tags: List<Tag>,
     modifier: Modifier = Modifier,
 ) {
     FormInput(
@@ -39,7 +40,7 @@ fun TagsInput(
 }
 
 @Composable
-private fun TagsInputContent(tags: List<String>) {
+private fun TagsInputContent(tags: List<Tag>) {
     OutlinedCard(
         shape = RoundedCornerShape(4.0.dp),
         colors = CardDefaults.outlinedCardColors(containerColor = Color.Transparent),
@@ -51,7 +52,7 @@ private fun TagsInputContent(tags: List<String>) {
         ) {
             if (tags.isNotEmpty()) {
                 Tags(
-                    tags = tags,
+                    tags = tags.map { it.label },
                     modifier = Modifier.weight(1f),
                 )
             } else {
@@ -94,7 +95,7 @@ private fun NoTagsText(
 }
 
 @Composable
-private fun TagsActionButton(tags: List<String>) {
+private fun TagsActionButton(tags: List<Tag>) {
     IconButton(
         onClick = {},
         modifier = Modifier
