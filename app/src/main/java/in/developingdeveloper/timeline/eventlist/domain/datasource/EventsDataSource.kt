@@ -5,4 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface EventsDataSource {
     fun getAllEvents(): Flow<List<Event>>
+
+    suspend fun addEvent(event: Event)
 }
