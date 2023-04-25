@@ -12,10 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,18 +26,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
+import `in`.developingdeveloper.timeline.add.event.ui.components.TagListBottomSheetContent
 import `in`.developingdeveloper.timeline.add.event.ui.models.AddEventViewState
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineStartAlignedTopAppBar
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 
 @Composable
 fun AddEventContent(
+    modalBottomSheetState: SheetState,
     viewState: AddEventViewState,
     onTitleValueChange: (String) -> Unit,
     onOccurredValueChange: (String) -> Unit,
     onModifyTagsClick: () -> Unit,
     onAddClick: () -> Unit,
     onCancelClick: () -> Unit,
+    onBottomModalSheetDismiss: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -69,6 +75,15 @@ fun AddEventContent(
                 onAddClick = onAddClick,
                 onCancelClick = onCancelClick,
             )
+        }
+    }
+
+    if (viewState.modifyTags) {
+        ModalBottomSheet(
+            onDismissRequest = onBottomModalSheetDismiss,
+            sheetState = modalBottomSheetState,
+        ) {
+            TagListBottomSheetContent(viewState = viewState.tagListViewState)
         }
     }
 }
@@ -117,12 +132,14 @@ private fun AddEventContentPreview() {
     TimelineTheme {
         Surface {
             AddEventContent(
+                modalBottomSheetState = rememberModalBottomSheetState(),
                 viewState = viewState,
                 onTitleValueChange = {},
                 onOccurredValueChange = {},
                 onModifyTagsClick = {},
                 onCancelClick = {},
                 onAddClick = {},
+                onBottomModalSheetDismiss = {},
             )
         }
     }

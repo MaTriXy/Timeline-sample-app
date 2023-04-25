@@ -37,6 +37,10 @@ class AddEventViewModel @Inject constructor(
         }
     }
 
+    fun onModifyTagsClick() {
+        _viewState.update { it.copy(modifyTags = true) }
+    }
+
     fun onAddEventClick() {
         viewModelScope.launch {
             _viewState.update { it.copy(isLoading = true, formEnabled = false) }
@@ -65,6 +69,10 @@ class AddEventViewModel @Inject constructor(
                 )
             },
         )
+    }
+
+    fun onModifyTagsCompleted() {
+        _viewState.update { it.copy(modifyTags = false) }
     }
 }
 
