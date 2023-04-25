@@ -45,6 +45,7 @@ fun AddEventContent(
                 .padding(16.dp),
         ) {
             AddEventForm(
+                isFormEnabled = viewState.formEnabled,
                 form = viewState.form,
                 onTitleValueChange = onTitleValueChange,
                 onOccurredOnValueChange = onOccurredValueChange,
