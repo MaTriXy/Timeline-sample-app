@@ -31,6 +31,7 @@ fun AddEventScreen(
         viewState = viewState,
         onTitleValueChange = viewModel::onTitleValueChange,
         onOccurredValueChange = viewModel::onOccurredValueChange,
+        onModifyTagsClick = {},
         onAddClick = viewModel::onAddEventClick,
         onCancelClick = { onCancelClick(navigator) },
     )

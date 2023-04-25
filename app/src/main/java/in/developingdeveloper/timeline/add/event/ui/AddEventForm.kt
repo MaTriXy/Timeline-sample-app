@@ -28,6 +28,7 @@ fun AddEventForm(
     isFormEnabled: Boolean,
     onTitleValueChange: (String) -> Unit,
     onOccurredOnValueChange: (String) -> Unit,
+    onModifyTagsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -50,7 +51,10 @@ fun AddEventForm(
             enabled = isFormEnabled,
         )
 
-        TagsInput(tags = form.tags)
+        TagsInput(
+            tags = form.tags,
+            onModifyTagsClick = onModifyTagsClick,
+        )
     }
 }
 
@@ -109,6 +113,7 @@ private fun AddEventFormPreview() {
                 isFormEnabled = true,
                 onTitleValueChange = {},
                 onOccurredOnValueChange = {},
+                onModifyTagsClick = {},
             )
         }
     }

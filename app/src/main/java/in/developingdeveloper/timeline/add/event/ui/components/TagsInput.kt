@@ -28,19 +28,26 @@ import `in`.developingdeveloper.timeline.core.ui.components.tag.TagLabel
 @Composable
 fun TagsInput(
     tags: List<Tag>,
+    onModifyTagsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     FormInput(
         label = stringResource(R.string.tags),
         input = {
-            TagsInputContent(tags)
+            TagsInputContent(
+                tags = tags,
+                onModifyTagsClick = onModifyTagsClick,
+            )
         },
         modifier = modifier,
     )
 }
 
 @Composable
-private fun TagsInputContent(tags: List<Tag>) {
+private fun TagsInputContent(
+    tags: List<Tag>,
+    onModifyTagsClick: () -> Unit,
+) {
     OutlinedCard(
         shape = RoundedCornerShape(4.0.dp),
         colors = CardDefaults.outlinedCardColors(containerColor = Color.Transparent),
@@ -64,7 +71,10 @@ private fun TagsInputContent(tags: List<Tag>) {
                 )
             }
 
-            TagsActionButton(tags)
+            TagsActionButton(
+                tags = tags,
+                onModifyTagsClick = onModifyTagsClick,
+            )
         }
     }
 }
@@ -95,9 +105,12 @@ private fun NoTagsText(
 }
 
 @Composable
-private fun TagsActionButton(tags: List<Tag>) {
+private fun TagsActionButton(
+    tags: List<Tag>,
+    onModifyTagsClick: () -> Unit,
+) {
     IconButton(
-        onClick = {},
+        onClick = onModifyTagsClick,
         modifier = Modifier
             .padding(vertical = 4.dp),
     ) {

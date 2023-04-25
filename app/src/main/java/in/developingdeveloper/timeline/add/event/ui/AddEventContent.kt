@@ -32,6 +32,7 @@ fun AddEventContent(
     viewState: AddEventViewState,
     onTitleValueChange: (String) -> Unit,
     onOccurredValueChange: (String) -> Unit,
+    onModifyTagsClick: () -> Unit,
     onAddClick: () -> Unit,
     onCancelClick: () -> Unit,
 ) {
@@ -59,6 +60,7 @@ fun AddEventContent(
                 form = viewState.form,
                 onTitleValueChange = onTitleValueChange,
                 onOccurredOnValueChange = onOccurredValueChange,
+                onModifyTagsClick = onModifyTagsClick,
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -118,6 +120,7 @@ private fun AddEventContentPreview() {
                 viewState = viewState,
                 onTitleValueChange = {},
                 onOccurredValueChange = {},
+                onModifyTagsClick = {},
                 onCancelClick = {},
                 onAddClick = {},
             )
