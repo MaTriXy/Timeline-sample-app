@@ -6,11 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import `in`.developingdeveloper.timeline.core.data.local.events.EventDao
+import `in`.developingdeveloper.timeline.core.data.local.events.EventTagCrossRef
+import `in`.developingdeveloper.timeline.core.data.local.events.PersistableEvent
 import `in`.developingdeveloper.timeline.core.data.local.tags.PersistableTag
 import `in`.developingdeveloper.timeline.core.data.local.tags.TagDao
 
 @Database(
-    entities = [PersistableTag::class],
+    entities = [PersistableEvent::class, PersistableTag::class, EventTagCrossRef::class],
     version = 1,
     exportSchema = false,
 )

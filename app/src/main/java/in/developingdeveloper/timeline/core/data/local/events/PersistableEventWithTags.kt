@@ -9,8 +9,8 @@ data class PersistableEventWithTags(
     @Embedded
     val event: PersistableEvent,
     @Relation(
-        parentColumn = "eventId",
-        entityColumn = "tagId",
+        parentColumn = "event_id",
+        entityColumn = "tag_id",
         associateBy = Junction(EventTagCrossRef::class),
     )
     val tags: List<PersistableTag>,
