@@ -10,7 +10,6 @@ data class NewEventForm(
     val tags: List<String>,
     val occurredOn: LocalDateTime,
     val occurredOnErrorMessage: String?,
-    val formEnabled: Boolean,
 ) {
     companion object {
         val Initial = NewEventForm(
@@ -19,7 +18,6 @@ data class NewEventForm(
             tags = emptyList(),
             occurredOn = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT),
             occurredOnErrorMessage = null,
-            formEnabled = true,
         )
     }
 }

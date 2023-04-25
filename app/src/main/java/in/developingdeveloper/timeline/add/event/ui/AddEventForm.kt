@@ -25,6 +25,7 @@ import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 @Composable
 fun AddEventForm(
     form: NewEventForm,
+    isFormEnabled: Boolean,
     onTitleValueChange: (String) -> Unit,
     onOccurredOnValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -37,7 +38,7 @@ fun AddEventForm(
             title = form.title,
             onTitleValueChange = onTitleValueChange,
             titleErrorMessage = form.titleErrorMessage,
-            enabled = form.formEnabled,
+            enabled = isFormEnabled,
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -46,7 +47,7 @@ fun AddEventForm(
             value = form.occurredOn,
             errorMessage = form.occurredOnErrorMessage,
             onValueChange = onOccurredOnValueChange,
-            enabled = form.formEnabled,
+            enabled = isFormEnabled,
         )
 
         TagsInput(tags = form.tags)
@@ -105,6 +106,7 @@ private fun AddEventFormPreview() {
         Surface {
             AddEventForm(
                 form = form,
+                isFormEnabled = true,
                 onTitleValueChange = {},
                 onOccurredOnValueChange = {},
             )
