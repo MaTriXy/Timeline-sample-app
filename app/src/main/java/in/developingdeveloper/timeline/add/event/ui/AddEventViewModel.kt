@@ -6,10 +6,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.developingdeveloper.timeline.add.event.domain.usecases.AddEventUseCase
 import `in`.developingdeveloper.timeline.add.event.ui.models.AddEventViewState
 import `in`.developingdeveloper.timeline.add.event.ui.models.NewEventForm
+import `in`.developingdeveloper.timeline.add.event.ui.models.SelectableTagListViewState
+import `in`.developingdeveloper.timeline.add.event.ui.models.SelectableUITag
 import `in`.developingdeveloper.timeline.core.domain.event.models.Event
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
 import `in`.developingdeveloper.timeline.taglist.domain.usecases.GetAllTagsUseCase
-import `in`.developingdeveloper.timeline.taglist.ui.models.TagListViewState
 import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -84,6 +85,7 @@ class AddEventViewModel @Inject constructor(
         val updatedTagListViewState =
             getTagListViewStateForResult(
                 result = result,
+                selectedTags = currentAddEventViewState.form.tags,
                 currentTagListViewState = currentAddEventViewState.tagListViewState,
             )
 
@@ -94,12 +96,16 @@ class AddEventViewModel @Inject constructor(
 
     private fun getTagListViewStateForResult(
         result: Result<List<Tag>>,
-        currentTagListViewState: TagListViewState,
-    ): TagListViewState {
+        selectedTags: Set<UITag>,
+        currentTagListViewState: SelectableTagListViewState,
+    ): SelectableTagListViewState {
         return result.fold(
             onSuccess = { tags ->
-                val uiTags = tags.toUiTags()
-                currentTagListViewState.toLoaded(tags = uiTags)
+                val uiTags = tags.toSelectableUiTags()
+                currentTagListViewState.toLoaded(
+                    selectedTags = selectedTags,
+                    selectableTags = uiTags,
+                )
             },
             onFailure = {
                 val message = it.message ?: "Something went wrong."
@@ -142,12 +148,13 @@ class AddEventViewModel @Inject constructor(
         _viewState.update { it.copy(modifyTags = false) }
     }
 
-    fun onTagClick(tag: UITag) {
+    fun onTagClick(tag: SelectableUITag) {
         _viewState.update {
-            val updatedTags = if (it.form.tags.contains(tag)) {
-                it.form.tags - tag
+            val uiTag = tag.toUITag()
+            val updatedTags = if (it.form.tags.contains(uiTag)) {
+                it.form.tags - uiTag
             } else {
-                it.form.tags + tag
+                it.form.tags + uiTag
             }
 
             val updatedForm = it.form.copy(tags = updatedTags)
@@ -166,7 +173,7 @@ private fun NewEventForm.toEvent(): Event {
     )
 }
 
-private fun List<UITag>.toTags(): List<Tag> {
+private fun Set<UITag>.toTags(): List<Tag> {
     return this.map(UITag::toTag)
 }
 
@@ -177,13 +184,21 @@ private fun UITag.toTag(): Tag {
     )
 }
 
-private fun List<Tag>.toUiTags(): List<UITag> {
-    return this.map(Tag::toUiTag)
-}
-
-private fun Tag.toUiTag(): UITag {
+private fun SelectableUITag.toUITag(): UITag {
     return UITag(
         id = this.id,
         label = this.label,
+    )
+}
+
+private fun List<Tag>.toSelectableUiTags(): List<SelectableUITag> {
+    return this.map(Tag::toSelectableUiTag)
+}
+
+private fun Tag.toSelectableUiTag(): SelectableUITag {
+    return SelectableUITag(
+        id = this.id,
+        label = this.label,
+        isSelected = false,
     )
 }

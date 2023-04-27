@@ -15,6 +15,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,7 +28,7 @@ import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 
 @Composable
 fun TagsInput(
-    tags: List<UITag>,
+    tags: Set<UITag>,
     onModifyTagsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -45,19 +46,21 @@ fun TagsInput(
 
 @Composable
 private fun TagsInputContent(
-    tags: List<UITag>,
+    tags: Set<UITag>,
     onModifyTagsClick: () -> Unit,
 ) {
     OutlinedCard(
         shape = RoundedCornerShape(4.0.dp),
         colors = CardDefaults.outlinedCardColors(containerColor = Color.Transparent),
     ) {
+        val areTagsEmpty = remember(tags) { tags.isNotEmpty() }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .defaultMinSize(minHeight = 56.dp),
         ) {
-            if (tags.isNotEmpty()) {
+            if (areTagsEmpty) {
                 Tags(
                     tags = tags.map { it.label },
                     modifier = Modifier.weight(1f),
@@ -72,7 +75,7 @@ private fun TagsInputContent(
             }
 
             TagsActionButton(
-                tags = tags,
+                areTagsEmpty = areTagsEmpty,
                 onModifyTagsClick = onModifyTagsClick,
             )
         }
@@ -106,7 +109,7 @@ private fun NoTagsText(
 
 @Composable
 private fun TagsActionButton(
-    tags: List<UITag>,
+    areTagsEmpty: Boolean,
     onModifyTagsClick: () -> Unit,
 ) {
     IconButton(
@@ -114,7 +117,7 @@ private fun TagsActionButton(
         modifier = Modifier
             .padding(vertical = 4.dp),
     ) {
-        val icon = if (tags.isEmpty()) {
+        val icon = if (areTagsEmpty) {
             Icons.Default.Add
         } else {
             Icons.Default.Edit

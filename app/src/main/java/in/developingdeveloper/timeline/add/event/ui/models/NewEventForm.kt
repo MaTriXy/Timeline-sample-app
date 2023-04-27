@@ -8,7 +8,7 @@ import java.time.LocalTime
 data class NewEventForm(
     val title: String,
     val titleErrorMessage: String?,
-    val tags: List<UITag>,
+    val tags: Set<UITag>,
     val occurredOn: LocalDateTime,
     val occurredOnErrorMessage: String?,
 ) {
@@ -16,7 +16,7 @@ data class NewEventForm(
         val Initial = NewEventForm(
             title = "",
             titleErrorMessage = null,
-            tags = emptyList(),
+            tags = emptySet(),
             occurredOn = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT),
             occurredOnErrorMessage = null,
         )
