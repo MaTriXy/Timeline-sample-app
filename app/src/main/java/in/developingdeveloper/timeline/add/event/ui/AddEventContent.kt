@@ -26,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
-import `in`.developingdeveloper.timeline.add.event.ui.components.TagListBottomSheetContent
+import `in`.developingdeveloper.timeline.add.event.ui.components.tags.bottomsheet.TagListBottomSheetContent
 import `in`.developingdeveloper.timeline.add.event.ui.models.AddEventViewState
 import `in`.developingdeveloper.timeline.add.event.ui.models.SelectableUITag
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineStartAlignedTopAppBar

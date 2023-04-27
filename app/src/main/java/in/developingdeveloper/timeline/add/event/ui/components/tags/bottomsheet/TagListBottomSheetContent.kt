@@ -1,4 +1,4 @@
-package `in`.developingdeveloper.timeline.add.event.ui.components
+package `in`.developingdeveloper.timeline.add.event.ui.components.tags.bottomsheet
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import `in`.developingdeveloper.timeline.add.event.ui.components.TagListForBottomSheet
 import `in`.developingdeveloper.timeline.add.event.ui.models.SelectableTagListViewState
 import `in`.developingdeveloper.timeline.add.event.ui.models.SelectableUITag
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
