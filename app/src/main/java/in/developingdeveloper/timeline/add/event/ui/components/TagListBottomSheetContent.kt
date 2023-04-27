@@ -5,7 +5,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
-import `in`.developingdeveloper.timeline.taglist.ui.components.TagList
 import `in`.developingdeveloper.timeline.taglist.ui.models.TagListViewState
 import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 
@@ -13,7 +12,7 @@ import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 fun TagListBottomSheetContent(
     viewState: TagListViewState,
 ) {
-    TagList(viewState = viewState)
+    TagListForBottomSheet(viewState = viewState)
 }
 
 @Preview(
