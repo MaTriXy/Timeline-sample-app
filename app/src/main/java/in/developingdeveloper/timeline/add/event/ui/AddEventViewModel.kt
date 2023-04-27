@@ -148,17 +148,26 @@ class AddEventViewModel @Inject constructor(
         _viewState.update { it.copy(modifyTags = false) }
     }
 
-    fun onTagClick(tag: SelectableUITag) {
+    fun onTagClick(index: Int, tag: SelectableUITag) {
         _viewState.update {
             val uiTag = tag.toUITag()
-            val updatedTags = if (it.form.tags.contains(uiTag)) {
+            val isAlreadySelected = it.form.tags.contains(uiTag)
+            val updatedTags = if (isAlreadySelected) {
                 it.form.tags - uiTag
             } else {
                 it.form.tags + uiTag
             }
 
+            val updatedSelectableTag = tag.copy(isSelected = !isAlreadySelected)
+            val selectableTags = it.tagListViewState.tags
+            val updatedSelectableTags = selectableTags.toMutableList()
+            updatedSelectableTags[index] = updatedSelectableTag
+
             val updatedForm = it.form.copy(tags = updatedTags)
-            it.copy(form = updatedForm)
+            it.copy(
+                form = updatedForm,
+                tagListViewState = it.tagListViewState.copy(tags = updatedSelectableTags),
+            )
         }
     }
 }

@@ -2,11 +2,20 @@ package `in`.developingdeveloper.timeline.add.event.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.outlined.Circle
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,7 +39,14 @@ fun SelectableTagListItem(
     ) {
         Spacer(modifier = Modifier.height(8.dp))
 
-        TagLabel(label = tag.label)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            TagLabel(label = tag.label)
+
+            IsSelectedIcon(tag.isSelected)
+        }
 
         Divider(
             color = Color.LightGray.copy(alpha = 0.4f),
@@ -38,6 +54,27 @@ fun SelectableTagListItem(
                 .padding(top = 8.dp),
         )
     }
+}
+
+@Composable
+private fun IsSelectedIcon(isSelected: Boolean) {
+    val icon = if (isSelected) {
+        Icons.Default.CheckCircle
+    } else {
+        Icons.Outlined.Circle
+    }
+
+    val iconTint = if (isSelected) {
+        MaterialTheme.colorScheme.primary
+    } else {
+        LocalContentColor.current
+    }
+
+    Icon(
+        imageVector = icon,
+        contentDescription = null,
+        tint = iconTint,
+    )
 }
 
 @Preview(

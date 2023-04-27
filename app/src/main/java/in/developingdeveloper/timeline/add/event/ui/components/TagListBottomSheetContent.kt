@@ -11,7 +11,7 @@ import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 @Composable
 fun TagListBottomSheetContent(
     viewState: SelectableTagListViewState,
-    onTagClick: (SelectableUITag) -> Unit,
+    onTagClick: (Int, SelectableUITag) -> Unit,
 ) {
     TagListForBottomSheet(
         viewState = viewState,
@@ -44,7 +44,7 @@ private fun TagListBottomSheetPreview() {
         Surface {
             TagListBottomSheetContent(
                 viewState = viewState,
-                onTagClick = {},
+                onTagClick = { _, _ -> },
             )
         }
     }

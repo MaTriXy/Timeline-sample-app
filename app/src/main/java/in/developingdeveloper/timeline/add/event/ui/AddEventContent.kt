@@ -42,7 +42,7 @@ fun AddEventContent(
     onAddClick: () -> Unit,
     onCancelClick: () -> Unit,
     onBottomModalSheetDismiss: () -> Unit,
-    onTagClick: (SelectableUITag) -> Unit,
+    onTagClick: (Int, SelectableUITag) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -145,7 +145,7 @@ private fun AddEventContentPreview() {
                 onCancelClick = {},
                 onAddClick = {},
                 onBottomModalSheetDismiss = {},
-                onTagClick = {},
+                onTagClick = { _, _ -> },
             )
         }
     }
