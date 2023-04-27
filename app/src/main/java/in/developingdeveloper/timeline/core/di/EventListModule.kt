@@ -4,8 +4,12 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import `in`.developingdeveloper.timeline.eventlist.domain.datasource.DemoEventListDataSource
-import `in`.developingdeveloper.timeline.eventlist.domain.datasource.EventListDataSource
+import `in`.developingdeveloper.timeline.add.event.domain.repositories.AddEventRepository
+import `in`.developingdeveloper.timeline.add.event.domain.repositories.DefaultAddEventRepository
+import `in`.developingdeveloper.timeline.add.event.domain.usecases.AddEventUseCase
+import `in`.developingdeveloper.timeline.add.event.domain.usecases.DefaultAddEventUseCase
+import `in`.developingdeveloper.timeline.core.data.local.events.RoomEventsDataSource
+import `in`.developingdeveloper.timeline.eventlist.domain.datasource.EventsDataSource
 import `in`.developingdeveloper.timeline.eventlist.domain.repositories.DefaultEventListRepository
 import `in`.developingdeveloper.timeline.eventlist.domain.repositories.EventListRepository
 import `in`.developingdeveloper.timeline.eventlist.domain.usescases.DefaultGetAllEventsUseCase
@@ -25,12 +29,24 @@ abstract class EventListModule {
     @Binds
     @Singleton
     abstract fun bindEventListDataSource(
-        eventListDataSource: DemoEventListDataSource,
-    ): EventListDataSource
+        eventsDataSource: RoomEventsDataSource,
+    ): EventsDataSource
 
     @Binds
     @Singleton
     abstract fun bindGetAllEventsUseCase(
         getAllEventsUseCase: DefaultGetAllEventsUseCase,
     ): GetAllEventsUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindAddEventRepository(
+        addEventRepository: DefaultAddEventRepository,
+    ): AddEventRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindAddEventUseCase(
+        addEventUseCase: DefaultAddEventUseCase,
+    ): AddEventUseCase
 }

@@ -1,18 +1,22 @@
 package `in`.developingdeveloper.timeline.eventlist.domain.datasource
 
-import `in`.developingdeveloper.timeline.eventlist.domain.models.Event
+import `in`.developingdeveloper.timeline.core.domain.event.models.Event
+import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDateTime
 import javax.inject.Inject
 
-class DemoEventListDataSource @Inject constructor() : EventListDataSource {
+class DemoEventsDataSource @Inject constructor() : EventsDataSource {
 
     private val events = listOf(
         Event(
             id = "1",
             title = "Started new app - Timeline.",
-            tags = listOf("Android", "Kotlin"),
+            tags = listOf(
+                Tag("1", "Android"),
+                Tag("2", "Kotlin"),
+            ),
             date = LocalDateTime.now(),
             createdOn = LocalDateTime.now(),
         ),
@@ -26,4 +30,6 @@ class DemoEventListDataSource @Inject constructor() : EventListDataSource {
     )
 
     override fun getAllEvents(): Flow<List<Event>> = flowOf(events)
+
+    override suspend fun addEvent(event: Event) = Unit
 }

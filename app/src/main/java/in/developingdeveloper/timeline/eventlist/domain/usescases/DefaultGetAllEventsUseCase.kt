@@ -1,6 +1,6 @@
 package `in`.developingdeveloper.timeline.eventlist.domain.usescases
 
-import `in`.developingdeveloper.timeline.eventlist.domain.models.Event
+import `in`.developingdeveloper.timeline.core.domain.event.models.Event
 import `in`.developingdeveloper.timeline.eventlist.domain.repositories.EventListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

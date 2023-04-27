@@ -31,7 +31,7 @@ import java.time.LocalDateTime
 @Composable
 fun EventListContent(
     viewState: EventListViewState,
-    onAddNewEventClick: () -> Unit,
+    onAddEventClick: () -> Unit,
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -45,7 +45,7 @@ fun EventListContent(
             )
         },
         floatingActionButton = {
-            AddEventFAB(onAddNewEventClick)
+            AddEventFAB(onAddEventClick = onAddEventClick)
         },
     ) { paddingValues ->
         Column(
@@ -108,8 +108,8 @@ private fun EventListContent(
 }
 
 @Composable
-private fun AddEventFAB(onAddNewEventClick: () -> Unit) {
-    FloatingActionButton(onClick = onAddNewEventClick) {
+private fun AddEventFAB(onAddEventClick: () -> Unit) {
+    FloatingActionButton(onClick = onAddEventClick) {
         Icon(
             imageVector = Icons.Default.Add,
             contentDescription = stringResource(id = R.string.add_event),
@@ -146,7 +146,7 @@ private fun EventListContentPreview() {
         Surface {
             EventListContent(
                 viewState = viewState,
-                onAddNewEventClick = {},
+                onAddEventClick = {},
                 onSettingsClick = {},
             )
         }
