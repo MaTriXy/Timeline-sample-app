@@ -65,5 +65,8 @@ private fun List<Tag>.toUiTags(): List<UITag> {
 }
 
 private fun Tag.toUiTag(): UITag {
-    return UITag(label = this.label)
+    return UITag(
+        id = this.id,
+        label = this.label,
+    )
 }

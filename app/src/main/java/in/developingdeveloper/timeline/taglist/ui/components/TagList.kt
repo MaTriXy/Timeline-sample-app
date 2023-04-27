@@ -26,6 +26,7 @@ import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 fun TagList(
     tags: List<UITag>,
     modifier: Modifier = Modifier,
+    onTagClick: (UITag) -> Unit = {},
 ) {
     LazyColumn(
         contentPadding = PaddingValues(vertical = 16.dp),
@@ -33,7 +34,10 @@ fun TagList(
             .fillMaxSize(),
     ) {
         items(tags) { tag ->
-            TagListItem(tag = tag)
+            TagListItem(
+                tag = tag,
+                onTagClick = onTagClick,
+            )
         }
     }
 }
@@ -89,7 +93,12 @@ private fun CenterText(text: String) {
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
 private fun TagListPreview() {
-    val tags = (1..10).map { UITag("Tag $it") }
+    val tags = (1..10).map {
+        UITag(
+            id = it.toString(),
+            label = "Tag $it",
+        )
+    }
 
     TimelineTheme {
         Surface {

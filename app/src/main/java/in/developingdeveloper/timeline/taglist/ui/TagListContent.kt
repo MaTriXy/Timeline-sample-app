@@ -80,7 +80,12 @@ private fun AddTagFloatingActionButton(onAddTagClick: () -> Unit) {
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
 private fun TagListContentPreview() {
-    val tags = (1..20).map { UITag("Random Tag #$it") }
+    val tags = (1..20).map {
+        UITag(
+            id = it.toString(),
+            label = "Random Tag #$it",
+        )
+    }
 
     val viewState = TagListViewState.Initial.copy(tags = tags)
 

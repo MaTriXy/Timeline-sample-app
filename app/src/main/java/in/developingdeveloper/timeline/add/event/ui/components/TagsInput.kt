@@ -15,42 +15,52 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
-import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
 import `in`.developingdeveloper.timeline.core.ui.components.FormInput
 import `in`.developingdeveloper.timeline.core.ui.components.tag.TagLabel
+import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 
 @Composable
 fun TagsInput(
-    tags: List<Tag>,
+    tags: Set<UITag>,
+    onModifyTagsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     FormInput(
         label = stringResource(R.string.tags),
         input = {
-            TagsInputContent(tags)
+            TagsInputContent(
+                tags = tags,
+                onModifyTagsClick = onModifyTagsClick,
+            )
         },
         modifier = modifier,
     )
 }
 
 @Composable
-private fun TagsInputContent(tags: List<Tag>) {
+private fun TagsInputContent(
+    tags: Set<UITag>,
+    onModifyTagsClick: () -> Unit,
+) {
     OutlinedCard(
         shape = RoundedCornerShape(4.0.dp),
         colors = CardDefaults.outlinedCardColors(containerColor = Color.Transparent),
     ) {
+        val areTagsEmpty = remember(tags) { tags.isNotEmpty() }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .defaultMinSize(minHeight = 56.dp),
         ) {
-            if (tags.isNotEmpty()) {
+            if (areTagsEmpty) {
                 Tags(
                     tags = tags.map { it.label },
                     modifier = Modifier.weight(1f),
@@ -64,7 +74,10 @@ private fun TagsInputContent(tags: List<Tag>) {
                 )
             }
 
-            TagsActionButton(tags)
+            TagsActionButton(
+                areTagsEmpty = areTagsEmpty,
+                onModifyTagsClick = onModifyTagsClick,
+            )
         }
     }
 }
@@ -95,13 +108,16 @@ private fun NoTagsText(
 }
 
 @Composable
-private fun TagsActionButton(tags: List<Tag>) {
+private fun TagsActionButton(
+    areTagsEmpty: Boolean,
+    onModifyTagsClick: () -> Unit,
+) {
     IconButton(
-        onClick = {},
+        onClick = onModifyTagsClick,
         modifier = Modifier
             .padding(vertical = 4.dp),
     ) {
-        val icon = if (tags.isEmpty()) {
+        val icon = if (areTagsEmpty) {
             Icons.Default.Add
         } else {
             Icons.Default.Edit

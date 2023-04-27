@@ -1,5 +1,6 @@
 package `in`.developingdeveloper.timeline.taglist.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -15,9 +16,14 @@ import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 @Composable
 fun TagListItem(
     tag: UITag,
+    onTagClick: (UITag) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier.padding(horizontal = 16.dp)) {
+    Column(
+        modifier = modifier
+            .clickable(onClick = { onTagClick(tag) })
+            .padding(horizontal = 16.dp),
+    ) {
         Spacer(modifier = Modifier.height(8.dp))
 
         TagLabel(label = tag.label)
