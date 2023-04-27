@@ -52,6 +52,7 @@ private fun TagsInputContent(
     OutlinedCard(
         shape = RoundedCornerShape(4.0.dp),
         colors = CardDefaults.outlinedCardColors(containerColor = Color.Transparent),
+        onClick = onModifyTagsClick,
     ) {
         val areTagsEmpty = remember(tags) { tags.isNotEmpty() }
 
