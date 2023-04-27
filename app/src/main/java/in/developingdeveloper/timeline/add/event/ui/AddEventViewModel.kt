@@ -147,9 +147,20 @@ private fun NewEventForm.toEvent(): Event {
     return Event(
         id = UUID.randomUUID().toString(),
         title = this.title,
-        tags = this.tags,
+        tags = this.tags.toTags(),
         date = this.occurredOn,
         createdOn = LocalDateTime.now(),
+    )
+}
+
+private fun List<UITag>.toTags(): List<Tag> {
+    return this.map(UITag::toTag)
+}
+
+private fun UITag.toTag(): Tag {
+    return Tag(
+        id = this.id,
+        label = this.label,
     )
 }
 
@@ -158,5 +169,8 @@ private fun List<Tag>.toUiTags(): List<UITag> {
 }
 
 private fun Tag.toUiTag(): UITag {
-    return UITag(label = this.label)
+    return UITag(
+        id = this.id,
+        label = this.label,
+    )
 }

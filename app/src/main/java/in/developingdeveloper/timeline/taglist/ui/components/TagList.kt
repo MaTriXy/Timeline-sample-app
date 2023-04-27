@@ -89,7 +89,12 @@ private fun CenterText(text: String) {
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
 private fun TagListPreview() {
-    val tags = (1..10).map { UITag("Tag $it") }
+    val tags = (1..10).map {
+        UITag(
+            id = it.toString(),
+            label = "Tag $it",
+        )
+    }
 
     TimelineTheme {
         Surface {

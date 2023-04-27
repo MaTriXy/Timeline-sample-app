@@ -26,7 +26,12 @@ fun TagListBottomSheetContent(
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
 private fun TagListBottomSheetPreview() {
-    val tags = (1..10).map { UITag("Tag $it") }
+    val tags = (1..10).map {
+        UITag(
+            id = it.toString(),
+            label = "Tag $it",
+        )
+    }
 
     val viewState = TagListViewState.Initial.copy(tags = tags)
 
