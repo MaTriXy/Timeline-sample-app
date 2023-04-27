@@ -22,10 +22,12 @@ import `in`.developingdeveloper.timeline.R
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 import `in`.developingdeveloper.timeline.taglist.ui.components.TagList
 import `in`.developingdeveloper.timeline.taglist.ui.models.TagListViewState
+import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 
 @Composable
 fun TagListForBottomSheet(
     viewState: TagListViewState,
+    onTagClick: (UITag) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -57,7 +59,11 @@ fun TagListForBottomSheet(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 style = MaterialTheme.typography.titleLarge,
             )
-            TagList(tags = viewState.tags)
+
+            TagList(
+                tags = viewState.tags,
+                onTagClick = onTagClick,
+            )
         }
     }
 }
@@ -101,7 +107,10 @@ private fun TagListForBottomSheetPreview() {
 
     TimelineTheme {
         Surface {
-            TagListForBottomSheet(viewState = viewState)
+            TagListForBottomSheet(
+                viewState = viewState,
+                onTagClick = {},
+            )
         }
     }
 }

@@ -30,6 +30,7 @@ import `in`.developingdeveloper.timeline.add.event.ui.components.TagListBottomSh
 import `in`.developingdeveloper.timeline.add.event.ui.models.AddEventViewState
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineStartAlignedTopAppBar
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
+import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 
 @Composable
 fun AddEventContent(
@@ -41,6 +42,7 @@ fun AddEventContent(
     onAddClick: () -> Unit,
     onCancelClick: () -> Unit,
     onBottomModalSheetDismiss: () -> Unit,
+    onTagClick: (UITag) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -83,7 +85,10 @@ fun AddEventContent(
             onDismissRequest = onBottomModalSheetDismiss,
             sheetState = modalBottomSheetState,
         ) {
-            TagListBottomSheetContent(viewState = viewState.tagListViewState)
+            TagListBottomSheetContent(
+                viewState = viewState.tagListViewState,
+                onTagClick = onTagClick,
+            )
         }
     }
 }
@@ -140,6 +145,7 @@ private fun AddEventContentPreview() {
                 onCancelClick = {},
                 onAddClick = {},
                 onBottomModalSheetDismiss = {},
+                onTagClick = {},
             )
         }
     }

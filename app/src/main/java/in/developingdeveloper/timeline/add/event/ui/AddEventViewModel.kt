@@ -141,6 +141,19 @@ class AddEventViewModel @Inject constructor(
     fun onModifyTagsCompleted() {
         _viewState.update { it.copy(modifyTags = false) }
     }
+
+    fun onTagClick(tag: UITag) {
+        _viewState.update {
+            val updatedTags = if (it.form.tags.contains(tag)) {
+                it.form.tags - tag
+            } else {
+                it.form.tags + tag
+            }
+
+            val updatedForm = it.form.copy(tags = updatedTags)
+            it.copy(form = updatedForm)
+        }
+    }
 }
 
 private fun NewEventForm.toEvent(): Event {

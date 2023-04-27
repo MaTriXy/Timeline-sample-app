@@ -11,8 +11,12 @@ import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 @Composable
 fun TagListBottomSheetContent(
     viewState: TagListViewState,
+    onTagClick: (UITag) -> Unit,
 ) {
-    TagListForBottomSheet(viewState = viewState)
+    TagListForBottomSheet(
+        viewState = viewState,
+        onTagClick = onTagClick,
+    )
 }
 
 @Preview(
@@ -37,7 +41,10 @@ private fun TagListBottomSheetPreview() {
 
     TimelineTheme {
         Surface {
-            TagListBottomSheetContent(viewState = viewState)
+            TagListBottomSheetContent(
+                viewState = viewState,
+                onTagClick = {},
+            )
         }
     }
 }

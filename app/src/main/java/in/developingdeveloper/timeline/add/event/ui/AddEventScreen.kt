@@ -69,6 +69,7 @@ fun AddEventScreen(
                 onCompletion = viewModel::onModifyTagsCompleted,
             )
         },
+        onTagClick = viewModel::onTagClick,
     )
 }
 
