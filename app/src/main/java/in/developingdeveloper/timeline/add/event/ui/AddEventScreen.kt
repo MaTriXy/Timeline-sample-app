@@ -1,11 +1,13 @@
 package `in`.developingdeveloper.timeline.add.event.ui
 
 import androidx.compose.material3.SheetState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -24,8 +26,9 @@ fun AddEventScreen(
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
-    val modalBottomSheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
+    val modalBottomSheetState = rememberModalBottomSheetState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(key1 = viewState.isCompleted) {
         if (!viewState.isCompleted) return@LaunchedEffect
@@ -34,6 +37,13 @@ fun AddEventScreen(
             result = "Event added successfully!",
             onlyIfResumed = true,
         )
+    }
+
+    val errorMessage = viewState.errorMessage
+    LaunchedEffect(key1 = errorMessage) {
+        errorMessage?.let {
+            snackbarHostState.showSnackbar(it)
+        }
     }
 
     viewState.modifyTags.let { modifyTags ->
@@ -56,6 +66,7 @@ fun AddEventScreen(
 
     AddEventContent(
         modalBottomSheetState = modalBottomSheetState,
+        snackbarHostState = snackbarHostState,
         viewState = viewState,
         onTitleValueChange = viewModel::onTitleValueChange,
         onOccurredValueChange = viewModel::onOccurredValueChange,

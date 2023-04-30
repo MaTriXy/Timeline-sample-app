@@ -137,8 +137,10 @@ class AddEventViewModel @Inject constructor(
                 )
             },
             onFailure = {
+                val errorMessage = it.message ?: "Error storing event."
                 currentViewState.copy(
                     isCompleted = false,
+                    errorMessage = errorMessage,
                 )
             },
         )

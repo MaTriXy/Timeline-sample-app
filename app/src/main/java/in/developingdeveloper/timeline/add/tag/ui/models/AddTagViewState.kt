@@ -5,6 +5,7 @@ data class AddTagViewState(
     val isLoading: Boolean,
     val isFormEnabled: Boolean,
     val isCompleted: Boolean,
+    val errorMessage: String?,
 ) {
     companion object {
         val Initial = AddTagViewState(
@@ -12,6 +13,7 @@ data class AddTagViewState(
             isLoading = false,
             isFormEnabled = true,
             isCompleted = false,
+            errorMessage = null,
         )
     }
 }

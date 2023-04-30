@@ -16,6 +16,8 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -26,7 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
-import `in`.developingdeveloper.timeline.add.event.ui.components.TagListBottomSheetContent
+import `in`.developingdeveloper.timeline.add.event.ui.components.tags.bottomsheet.TagListBottomSheetContent
 import `in`.developingdeveloper.timeline.add.event.ui.models.AddEventViewState
 import `in`.developingdeveloper.timeline.add.event.ui.models.SelectableUITag
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineStartAlignedTopAppBar
@@ -35,6 +37,7 @@ import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 @Composable
 fun AddEventContent(
     modalBottomSheetState: SheetState,
+    snackbarHostState: SnackbarHostState,
     viewState: AddEventViewState,
     onTitleValueChange: (String) -> Unit,
     onOccurredValueChange: (String) -> Unit,
@@ -48,6 +51,7 @@ fun AddEventContent(
         topBar = {
             TimelineStartAlignedTopAppBar(title = stringResource(id = R.string.add_event))
         },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { contentPadding ->
         Column(
             modifier = Modifier
@@ -138,6 +142,7 @@ private fun AddEventContentPreview() {
         Surface {
             AddEventContent(
                 modalBottomSheetState = rememberModalBottomSheetState(),
+                snackbarHostState = SnackbarHostState(),
                 viewState = viewState,
                 onTitleValueChange = {},
                 onOccurredValueChange = {},

@@ -1,4 +1,4 @@
-package `in`.developingdeveloper.timeline.add.event.ui.components
+package `in`.developingdeveloper.timeline.add.event.ui.components.tags.bottomsheet
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
+import `in`.developingdeveloper.timeline.add.event.ui.components.SelectableTagListItem
 import `in`.developingdeveloper.timeline.add.event.ui.models.SelectableTagListViewState
 import `in`.developingdeveloper.timeline.add.event.ui.models.SelectableUITag
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme

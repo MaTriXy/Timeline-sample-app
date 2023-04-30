@@ -1,8 +1,13 @@
-package `in`.developingdeveloper.timeline.add.event.ui.components
+package `in`.developingdeveloper.timeline.add.event.ui.components.tags.bottomsheet
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Card
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import `in`.developingdeveloper.timeline.add.event.ui.models.SelectableTagListViewState
 import `in`.developingdeveloper.timeline.add.event.ui.models.SelectableUITag
@@ -13,9 +18,15 @@ fun TagListBottomSheetContent(
     viewState: SelectableTagListViewState,
     onTagClick: (Int, SelectableUITag) -> Unit,
 ) {
+    Card() {
+    }
+
     TagListForBottomSheet(
         viewState = viewState,
         onTagClick = onTagClick,
+        modifier = Modifier
+            .fillMaxHeight(TagListBottomSheetDefaults.maxHeightPercentage)
+            .wrapContentHeight(align = Alignment.Top),
     )
 }
 

@@ -33,9 +33,12 @@ class AddTagViewModel @Inject constructor(
                 )
             },
             onFailure = {
+                val message = it.message ?: "Something went wrong."
+
                 currentViewState.copy(
                     isLoading = false,
                     isFormEnabled = true,
+                    errorMessage = message,
                 )
             },
         )
