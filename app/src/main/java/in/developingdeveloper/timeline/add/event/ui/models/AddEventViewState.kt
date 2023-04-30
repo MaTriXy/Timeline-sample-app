@@ -7,6 +7,7 @@ data class AddEventViewState(
     val formEnabled: Boolean,
     val isLoading: Boolean,
     val isCompleted: Boolean,
+    val errorMessage: String?,
 ) {
     companion object {
         val Initial = AddEventViewState(
@@ -16,6 +17,7 @@ data class AddEventViewState(
             formEnabled = true,
             isLoading = false,
             isCompleted = false,
+            errorMessage = null,
         )
     }
 }
