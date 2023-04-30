@@ -11,6 +11,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.result.ResultBackNavigator
+import `in`.developingdeveloper.timeline.core.ui.components.onBackNavigationIconClick
 
 @Composable
 @Destination
@@ -41,6 +42,7 @@ fun AddTagScreen(
     AddTagContent(
         snackbarHostState = snackbarHostState,
         viewState = viewState,
+        onNavigationIconClick = { onBackNavigationIconClick(navigator) },
         onLabelValueChange = viewModel::onLabelValueChange,
         onAddClick = {
             keyboardController?.hide()
