@@ -5,7 +5,7 @@ import `in`.developingdeveloper.timeline.core.domain.event.models.Event
 import java.time.LocalDateTime
 import javax.inject.Inject
 
-@Suppress("TooGenericExceptionCaught")
+@Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown")
 class DefaultAddEventUseCase @Inject constructor(
     private val addEventRepository: AddEventRepository,
 ) : AddEventUseCase {
