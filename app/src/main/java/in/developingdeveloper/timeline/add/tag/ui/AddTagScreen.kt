@@ -1,8 +1,10 @@
 package `in`.developingdeveloper.timeline.add.tag.ui
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -20,6 +22,7 @@ fun AddTagScreen(
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
     val keyboardController = LocalSoftwareKeyboardController.current
+    val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(viewState.isCompleted) {
         resultNavigator.navigateBack(
@@ -28,7 +31,15 @@ fun AddTagScreen(
         )
     }
 
+    val errorMessage = viewState.errorMessage
+    LaunchedEffect(key1 = errorMessage) {
+        if (errorMessage == null) return@LaunchedEffect
+
+        snackbarHostState.showSnackbar(errorMessage)
+    }
+
     AddTagContent(
+        snackbarHostState = snackbarHostState,
         viewState = viewState,
         onLabelValueChange = viewModel::onLabelValueChange,
         onAddClick = {
