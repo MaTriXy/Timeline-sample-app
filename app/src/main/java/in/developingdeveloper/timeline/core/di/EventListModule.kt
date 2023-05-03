@@ -4,16 +4,16 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import `in`.developingdeveloper.timeline.add.event.domain.repositories.AddEventRepository
-import `in`.developingdeveloper.timeline.add.event.domain.repositories.DefaultAddEventRepository
-import `in`.developingdeveloper.timeline.add.event.domain.usecases.AddEventUseCase
-import `in`.developingdeveloper.timeline.add.event.domain.usecases.DefaultAddEventUseCase
 import `in`.developingdeveloper.timeline.core.data.local.events.RoomEventsDataSource
 import `in`.developingdeveloper.timeline.eventlist.domain.datasource.EventsDataSource
 import `in`.developingdeveloper.timeline.eventlist.domain.repositories.DefaultEventListRepository
 import `in`.developingdeveloper.timeline.eventlist.domain.repositories.EventListRepository
 import `in`.developingdeveloper.timeline.eventlist.domain.usescases.DefaultGetAllEventsUseCase
 import `in`.developingdeveloper.timeline.eventlist.domain.usescases.GetAllEventsUseCase
+import `in`.developingdeveloper.timeline.modify.event.domain.repositories.AddEventRepository
+import `in`.developingdeveloper.timeline.modify.event.domain.repositories.DefaultAddEventRepository
+import `in`.developingdeveloper.timeline.modify.event.domain.usecases.AddEventUseCase
+import `in`.developingdeveloper.timeline.modify.event.domain.usecases.DefaultAddEventUseCase
 import javax.inject.Singleton
 
 @Module
