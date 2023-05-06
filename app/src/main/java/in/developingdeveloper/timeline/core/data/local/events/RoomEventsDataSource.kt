@@ -28,6 +28,8 @@ class RoomEventsDataSource @Inject constructor(
         return eventDao.getAllEvents()
             .map(List<PersistableEventWithTags>::toEvents)
     }
+
+    override suspend fun updateEvent(event: Event) = Unit
 }
 
 private fun List<PersistableEventWithTags>.toEvents(): List<Event> {

@@ -7,4 +7,5 @@ interface EventsDataSource {
     fun getAllEvents(): Flow<List<Event>>
 
     suspend fun addEvent(event: Event)
+    suspend fun updateEvent(event: Event)
 }

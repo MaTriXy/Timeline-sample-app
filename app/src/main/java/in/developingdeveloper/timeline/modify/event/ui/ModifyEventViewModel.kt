@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.developingdeveloper.timeline.core.domain.event.models.Event
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
-import `in`.developingdeveloper.timeline.modify.event.domain.usecases.AddEventUseCase
+import `in`.developingdeveloper.timeline.modify.event.domain.usecases.ModifyEventUseCase
 import `in`.developingdeveloper.timeline.modify.event.ui.models.ModifyEventForm
 import `in`.developingdeveloper.timeline.modify.event.ui.models.ModifyEventViewState
 import `in`.developingdeveloper.timeline.modify.event.ui.models.SelectableTagListViewState
@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
@@ -26,14 +27,28 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ModifyEventViewModel @Inject constructor(
-    private val addEventUseCase: AddEventUseCase,
+    private val modifyEventUseCase: ModifyEventUseCase,
     private val getAllTagsUseCase: GetAllTagsUseCase,
 ) : ViewModel() {
 
     private val _viewState = MutableStateFlow(ModifyEventViewState.Initial)
     val viewState = _viewState.asStateFlow()
 
+    private var isNewEvent: Boolean = true
+
     private var areTagsLoaded = false
+
+    init {
+        observeViewStateForIsNewEvent()
+    }
+
+    private fun observeViewStateForIsNewEvent() {
+        viewState
+            .map { it.isNewEvent }
+            .distinctUntilChanged()
+            .onEach { isNewEvent = it }
+            .launchIn(viewModelScope)
+    }
 
     fun onTitleValueChange(title: String) {
         _viewState.update {
@@ -120,14 +135,14 @@ class ModifyEventViewModel @Inject constructor(
 
             val eventToCreate = _viewState.value.form.toEvent()
 
-            val result = addEventUseCase.invoke(eventToCreate)
-            _viewState.value = getViewStateForAddEventResult(result)
+            val result = modifyEventUseCase.invoke(eventToCreate, isNewEvent)
+            _viewState.value = getViewStateForModifyEventResult(result)
 
             _viewState.update { it.copy(isLoading = false, formEnabled = true) }
         }
     }
 
-    private fun getViewStateForAddEventResult(result: Result<Unit>): ModifyEventViewState {
+    private fun getViewStateForModifyEventResult(result: Result<Unit>): ModifyEventViewState {
         val currentViewState = _viewState.value
 
         return result.fold(
@@ -137,7 +152,10 @@ class ModifyEventViewModel @Inject constructor(
                 )
             },
             onFailure = {
-                val errorMessage = it.message ?: "Error storing event."
+                val defaultErrorMessage =
+                    if (isNewEvent) "Error storing event." else "Error updating event"
+
+                val errorMessage = it.message ?: defaultErrorMessage
                 currentViewState.copy(
                     isCompleted = false,
                     errorMessage = errorMessage,

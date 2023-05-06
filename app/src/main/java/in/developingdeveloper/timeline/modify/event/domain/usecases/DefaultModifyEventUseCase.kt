@@ -2,18 +2,25 @@ package `in`.developingdeveloper.timeline.modify.event.domain.usecases
 
 import `in`.developingdeveloper.timeline.core.domain.event.models.Event
 import `in`.developingdeveloper.timeline.modify.event.domain.repositories.AddEventRepository
+import `in`.developingdeveloper.timeline.modify.event.domain.repositories.UpdateEventRepository
 import java.time.LocalDateTime
 import javax.inject.Inject
 
 @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown")
-class DefaultAddEventUseCase @Inject constructor(
+class DefaultModifyEventUseCase @Inject constructor(
     private val addEventRepository: AddEventRepository,
-) : AddEventUseCase {
-    override suspend fun invoke(event: Event): Result<Unit> {
+    private val updateEventRepository: UpdateEventRepository,
+) : ModifyEventUseCase {
+    override suspend fun invoke(event: Event, isNewEvent: Boolean): Result<Unit> {
         return try {
             validateEvent(event)
 
-            addEventRepository.addEvent(event)
+            if (isNewEvent) {
+                addEventRepository.addEvent(event)
+            } else {
+                updateEventRepository.updateEvent(event)
+            }
+
             Result.success(Unit)
         } catch (exception: Exception) {
             Result.failure(exception)
