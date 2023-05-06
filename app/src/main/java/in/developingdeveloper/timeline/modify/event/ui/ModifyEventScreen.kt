@@ -71,7 +71,7 @@ fun ModifyEventScreen(
         onTitleValueChange = viewModel::onTitleValueChange,
         onOccurredValueChange = viewModel::onOccurredValueChange,
         onModifyTagsClick = viewModel::onModifyTagsClick,
-        onAddClick = viewModel::onAddEventClick,
+        onDoneClick = viewModel::onDoneClick,
         onCancelClick = { onCancelClick(navigator) },
         onBottomModalSheetDismiss = {
             hideModalBottomSheet(

@@ -42,14 +42,14 @@ fun ModifyEventContent(
     onTitleValueChange: (String) -> Unit,
     onOccurredValueChange: (String) -> Unit,
     onModifyTagsClick: () -> Unit,
-    onAddClick: () -> Unit,
+    onDoneClick: () -> Unit,
     onCancelClick: () -> Unit,
     onBottomModalSheetDismiss: () -> Unit,
     onTagClick: (Int, SelectableUITag) -> Unit,
 ) {
     Scaffold(
         topBar = {
-            TimelineStartAlignedTopAppBar(title = stringResource(id = R.string.add_event))
+            ModifyEventTopAppBar(viewState.isNewEvent)
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { contentPadding ->
@@ -78,7 +78,8 @@ fun ModifyEventContent(
             Spacer(modifier = Modifier.height(8.dp))
 
             Actions(
-                onAddClick = onAddClick,
+                isNewEvent = viewState.isNewEvent,
+                onDoneClick = onDoneClick,
                 onCancelClick = onCancelClick,
             )
         }
@@ -98,8 +99,15 @@ fun ModifyEventContent(
 }
 
 @Composable
+private fun ModifyEventTopAppBar(isNewEvent: Boolean) {
+    val titleRes = if (isNewEvent) R.string.add_event else R.string.edit_event
+    TimelineStartAlignedTopAppBar(title = stringResource(id = titleRes))
+}
+
+@Composable
 private fun Actions(
-    onAddClick: () -> Unit,
+    isNewEvent: Boolean,
+    onDoneClick: () -> Unit,
     onCancelClick: () -> Unit,
 ) {
     Row(
@@ -115,11 +123,12 @@ private fun Actions(
         }
 
         Button(
-            onClick = onAddClick,
+            onClick = onDoneClick,
             modifier = Modifier.weight(2f),
         ) {
+            val textRes = if (isNewEvent) R.string.add_event else R.string.edit_event
             Text(
-                text = stringResource(id = R.string.add_event),
+                text = stringResource(id = textRes),
             )
         }
     }
@@ -148,7 +157,7 @@ private fun ModifyEventContentPreview() {
                 onOccurredValueChange = {},
                 onModifyTagsClick = {},
                 onCancelClick = {},
-                onAddClick = {},
+                onDoneClick = {},
                 onBottomModalSheetDismiss = {},
                 onTagClick = { _, _ -> },
             )

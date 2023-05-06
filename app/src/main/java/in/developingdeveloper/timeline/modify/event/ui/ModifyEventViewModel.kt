@@ -114,7 +114,7 @@ class ModifyEventViewModel @Inject constructor(
         )
     }
 
-    fun onAddEventClick() {
+    fun onDoneClick() {
         viewModelScope.launch {
             _viewState.update { it.copy(isLoading = true, formEnabled = false) }
 

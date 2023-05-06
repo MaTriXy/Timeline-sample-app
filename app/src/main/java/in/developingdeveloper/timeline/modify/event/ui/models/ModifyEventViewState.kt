@@ -8,6 +8,7 @@ data class ModifyEventViewState(
     val isLoading: Boolean,
     val isCompleted: Boolean,
     val errorMessage: String?,
+    val isNewEvent: Boolean,
 ) {
     companion object {
         val Initial = ModifyEventViewState(
@@ -18,6 +19,7 @@ data class ModifyEventViewState(
             isLoading = false,
             isCompleted = false,
             errorMessage = null,
+            isNewEvent = true,
         )
     }
 }
