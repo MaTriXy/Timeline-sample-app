@@ -18,6 +18,7 @@ import java.time.LocalDateTime
 @Composable
 fun EventList(
     events: List<UIEvent>,
+    onEventListItemClick: (UIEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -26,7 +27,10 @@ fun EventList(
         contentPadding = PaddingValues(16.dp),
     ) {
         items(events) { event ->
-            EventListItem(event = event)
+            EventListItem(
+                event = event,
+                onClick = { onEventListItemClick(event) },
+            )
         }
     }
 }
@@ -56,7 +60,10 @@ private fun EventListPreview() {
 
     TimelineTheme {
         Surface {
-            EventList(events)
+            EventList(
+                events = events,
+                onEventListItemClick = {},
+            )
         }
     }
 }

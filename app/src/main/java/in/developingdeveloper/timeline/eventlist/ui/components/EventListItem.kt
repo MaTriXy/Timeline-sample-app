@@ -26,8 +26,13 @@ import java.time.LocalDateTime
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun EventListItem(event: UIEvent) {
-    Card {
+fun EventListItem(
+    event: UIEvent,
+    onClick: () -> Unit,
+) {
+    Card(
+        onClick = onClick,
+    ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(4.dp),
             modifier = Modifier
@@ -98,7 +103,10 @@ private fun EventListItemPreview() {
 
     TimelineTheme {
         Surface {
-            EventListItem(event)
+            EventListItem(
+                event = event,
+                onClick = {},
+            )
         }
     }
 }
