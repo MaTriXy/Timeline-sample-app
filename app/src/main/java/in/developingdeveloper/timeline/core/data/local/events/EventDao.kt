@@ -1,10 +1,12 @@
 package `in`.developingdeveloper.timeline.core.data.local.events
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -34,6 +36,40 @@ interface EventDao {
                 EventTagCrossRef(event.id, it.id)
             }.forEach {
                 addEventWithTag(it)
+            }
+    }
+
+    @Update
+    suspend fun updateEvent(event: PersistableEvent)
+
+    @Delete
+    suspend fun deleteEventWithTag(event: EventTagCrossRef)
+
+    @Transaction
+    @Suppress("TooGenericExceptionThrown")
+    suspend fun updateEventWithTags(eventWithTags: PersistableEventWithTags) {
+        val (event, tags) = eventWithTags
+
+        val existingEvent =
+            getEventById(event.id) ?: throw Exception("Event with id ${event.id} doesn't exist.")
+
+        updateEvent(event)
+
+        val addedTags = tags.minus(existingEvent.tags.toSet())
+        val removedTags = existingEvent.tags.minus(tags.toSet())
+
+        addedTags
+            .map {
+                EventTagCrossRef(event.id, it.id)
+            }.forEach {
+                addEventWithTag(it)
+            }
+
+        removedTags
+            .map {
+                EventTagCrossRef(event.id, it.id)
+            }.forEach {
+                deleteEventWithTag(it)
             }
     }
 }

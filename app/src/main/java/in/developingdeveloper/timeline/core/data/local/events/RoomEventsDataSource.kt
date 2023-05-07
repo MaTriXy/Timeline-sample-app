@@ -26,7 +26,10 @@ class RoomEventsDataSource @Inject constructor(
         return eventDao.getEventById(eventId)?.toEvent()
     }
 
-    override suspend fun updateEvent(event: Event) = Unit
+    override suspend fun updateEvent(event: Event) {
+        val persistableEventWithTags = event.toPersistableEventsWithTags()
+        eventDao.updateEventWithTags(persistableEventWithTags)
+    }
 }
 
 private fun Event.toPersistableEventsWithTags(): PersistableEventWithTags {
