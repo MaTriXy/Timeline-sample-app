@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface EventListRepository {
     fun getAllEvents(): Flow<List<Event>>
+    suspend fun getEventById(eventId: String): Event
 }

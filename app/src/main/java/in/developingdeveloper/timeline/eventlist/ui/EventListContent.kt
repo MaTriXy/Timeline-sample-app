@@ -31,6 +31,7 @@ import java.time.LocalDateTime
 @Composable
 fun EventListContent(
     viewState: EventListViewState,
+    onEventListItemClick: (UIEvent) -> Unit,
     onAddEventClick: () -> Unit,
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -60,7 +61,10 @@ fun EventListContent(
             if (viewState.events.isEmpty()) {
                 EmptyListContent()
             } else {
-                EventListContent(events = viewState.events)
+                EventListContent(
+                    events = viewState.events,
+                    onEventListItemClick = onEventListItemClick,
+                )
             }
         }
     }
@@ -99,10 +103,12 @@ private fun EmptyListContent(modifier: Modifier = Modifier) {
 @Composable
 private fun EventListContent(
     events: List<UIEvent>,
+    onEventListItemClick: (UIEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     EventList(
         events = events,
+        onEventListItemClick = onEventListItemClick,
         modifier = modifier,
     )
 }
@@ -146,6 +152,7 @@ private fun EventListContentPreview() {
         Surface {
             EventListContent(
                 viewState = viewState,
+                onEventListItemClick = {},
                 onAddEventClick = {},
                 onSettingsClick = {},
             )

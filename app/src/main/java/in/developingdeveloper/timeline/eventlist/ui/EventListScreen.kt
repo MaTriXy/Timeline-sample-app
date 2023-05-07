@@ -11,8 +11,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import `in`.developingdeveloper.timeline.destinations.AddEventScreenDestination
+import `in`.developingdeveloper.timeline.destinations.ModifyEventScreenDestination
 import `in`.developingdeveloper.timeline.destinations.SettingsScreenDestination
+import `in`.developingdeveloper.timeline.eventlist.ui.models.UIEvent
 
 @Composable
 @Destination
@@ -34,14 +35,19 @@ fun EventListScreen(
 
     EventListContent(
         viewState = viewState,
+        onEventListItemClick = { onEventListItemClick(navigator, it) },
         onAddEventClick = { onAddEventClick(navigator) },
         onSettingsClick = { onSettingsClick(navigator) },
         modifier = modifier,
     )
 }
 
-fun onAddEventClick(navigator: DestinationsNavigator) {
-    navigator.navigate(AddEventScreenDestination)
+private fun onEventListItemClick(navigator: DestinationsNavigator, event: UIEvent) {
+    navigator.navigate(ModifyEventScreenDestination(eventId = event.id))
+}
+
+private fun onAddEventClick(navigator: DestinationsNavigator) {
+    navigator.navigate(ModifyEventScreenDestination())
 }
 
 private fun onSettingsClick(navigator: DestinationsNavigator) {

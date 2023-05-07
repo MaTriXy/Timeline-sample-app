@@ -13,14 +13,7 @@ class RoomEventsDataSource @Inject constructor(
 ) : EventsDataSource {
 
     override suspend fun addEvent(event: Event) {
-        val persistableEvent = event.toPersistableEvent()
-        val persistableTags = event.tags.toPersistableTags()
-
-        val persistableEventWithTags = PersistableEventWithTags(
-            event = persistableEvent,
-            tags = persistableTags,
-        )
-
+        val persistableEventWithTags = event.toPersistableEventsWithTags()
         eventDao.addEventWithTags(persistableEventWithTags)
     }
 
@@ -28,20 +21,41 @@ class RoomEventsDataSource @Inject constructor(
         return eventDao.getAllEvents()
             .map(List<PersistableEventWithTags>::toEvents)
     }
+
+    override suspend fun getEventById(eventId: String): Event? {
+        return eventDao.getEventById(eventId)?.toEvent()
+    }
+
+    override suspend fun updateEvent(event: Event) {
+        val persistableEventWithTags = event.toPersistableEventsWithTags()
+        eventDao.updateEventWithTags(persistableEventWithTags)
+    }
+}
+
+private fun Event.toPersistableEventsWithTags(): PersistableEventWithTags {
+    val persistableEvent = this.toPersistableEvent()
+    val persistableTags = this.tags.toPersistableTags()
+
+    return PersistableEventWithTags(
+        event = persistableEvent,
+        tags = persistableTags,
+    )
 }
 
 private fun List<PersistableEventWithTags>.toEvents(): List<Event> {
-    return this.map {
-        val event = it.event
-        val tags = it.tags.toTags()
-        Event(
-            id = event.id,
-            title = event.title,
-            tags = tags,
-            date = event.date,
-            createdOn = event.createdOn,
-        )
-    }
+    return this.map(PersistableEventWithTags::toEvent)
+}
+
+private fun PersistableEventWithTags.toEvent(): Event {
+    val event = this.event
+    val tags = this.tags.toTags()
+    return Event(
+        id = event.id,
+        title = event.title,
+        tags = tags,
+        date = event.date,
+        createdOn = event.createdOn,
+    )
 }
 
 private fun List<PersistableTag>.toTags(): List<Tag> {

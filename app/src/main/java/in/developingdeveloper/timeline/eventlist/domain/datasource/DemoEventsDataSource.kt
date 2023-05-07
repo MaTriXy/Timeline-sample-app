@@ -31,5 +31,11 @@ class DemoEventsDataSource @Inject constructor() : EventsDataSource {
 
     override fun getAllEvents(): Flow<List<Event>> = flowOf(events)
 
+    override suspend fun getEventById(eventId: String): Event? {
+        return events.firstOrNull { it.id == eventId }
+    }
+
     override suspend fun addEvent(event: Event) = Unit
+
+    override suspend fun updateEvent(event: Event) = Unit
 }
