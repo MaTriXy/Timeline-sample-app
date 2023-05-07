@@ -14,7 +14,9 @@ import `in`.developingdeveloper.timeline.modify.event.domain.repositories.AddEve
 import `in`.developingdeveloper.timeline.modify.event.domain.repositories.DefaultAddEventRepository
 import `in`.developingdeveloper.timeline.modify.event.domain.repositories.DefaultUpdateEventRepository
 import `in`.developingdeveloper.timeline.modify.event.domain.repositories.UpdateEventRepository
+import `in`.developingdeveloper.timeline.modify.event.domain.usecases.DefaultGetEventByIdUseCase
 import `in`.developingdeveloper.timeline.modify.event.domain.usecases.DefaultModifyEventUseCase
+import `in`.developingdeveloper.timeline.modify.event.domain.usecases.GetEventByIdUseCase
 import `in`.developingdeveloper.timeline.modify.event.domain.usecases.ModifyEventUseCase
 import javax.inject.Singleton
 
@@ -39,6 +41,12 @@ abstract class EventListModule {
     abstract fun bindGetAllEventsUseCase(
         getAllEventsUseCase: DefaultGetAllEventsUseCase,
     ): GetAllEventsUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindGetEventByIdUseCase(
+        getEventByIdUseCase: DefaultGetEventByIdUseCase,
+    ): GetEventByIdUseCase
 
     @Binds
     @Singleton

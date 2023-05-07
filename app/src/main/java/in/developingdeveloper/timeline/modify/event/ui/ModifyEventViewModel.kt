@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.developingdeveloper.timeline.core.domain.event.models.Event
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
+import `in`.developingdeveloper.timeline.modify.event.domain.usecases.GetEventByIdUseCase
 import `in`.developingdeveloper.timeline.modify.event.domain.usecases.ModifyEventUseCase
 import `in`.developingdeveloper.timeline.modify.event.ui.models.ModifyEventForm
 import `in`.developingdeveloper.timeline.modify.event.ui.models.ModifyEventViewState
@@ -16,7 +17,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
@@ -28,6 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ModifyEventViewModel @Inject constructor(
     private val modifyEventUseCase: ModifyEventUseCase,
+    private val getEventByIdUseCase: GetEventByIdUseCase,
     private val getAllTagsUseCase: GetAllTagsUseCase,
 ) : ViewModel() {
 
@@ -38,16 +39,56 @@ class ModifyEventViewModel @Inject constructor(
 
     private var areTagsLoaded = false
 
-    init {
-        observeViewStateForIsNewEvent()
+    private var eventId: String? = null
+
+    fun init(eventId: String?) {
+        setEventId(eventId)
+        setIsNewEvent(eventId == null)
+        getEventDetailsForExistingEvent()
     }
 
-    private fun observeViewStateForIsNewEvent() {
-        viewState
-            .map { it.isNewEvent }
-            .distinctUntilChanged()
-            .onEach { isNewEvent = it }
-            .launchIn(viewModelScope)
+    private fun getEventDetailsForExistingEvent() {
+        if (isNewEvent) return
+
+        val eventId = eventId ?: return
+
+        viewModelScope.launch {
+            _viewState.update { it.copy(isLoading = true) }
+            val result = getEventByIdUseCase.invoke(eventId)
+
+            _viewState.value = getViewStateForGetEventById(result)
+
+            _viewState.update { it.copy(isLoading = false) }
+        }
+    }
+
+    private fun getViewStateForGetEventById(result: Result<Event>): ModifyEventViewState {
+        val currentViewState = _viewState.value
+
+        return result.fold(
+            onSuccess = { event ->
+                val updatedForm = currentViewState.form.copy(
+                    title = event.title,
+                    tags = event.tags.toUITags().toSet(),
+                    occurredOn = event.date,
+                )
+
+                currentViewState.copy(form = updatedForm)
+            },
+            onFailure = {
+                currentViewState.copy(errorMessage = it.message ?: "Failed to load event.")
+            },
+        )
+    }
+
+    private fun setEventId(eventId: String?) {
+        this.eventId = eventId ?: getRandomUUID()
+    }
+
+    private fun getRandomUUID() = UUID.randomUUID().toString()
+
+    private fun setIsNewEvent(isNewEvent: Boolean) {
+        this.isNewEvent = isNewEvent
     }
 
     fun onTitleValueChange(title: String) {
@@ -133,7 +174,8 @@ class ModifyEventViewModel @Inject constructor(
         viewModelScope.launch {
             _viewState.update { it.copy(isLoading = true, formEnabled = false) }
 
-            val eventToCreate = _viewState.value.form.toEvent()
+            val eventId = eventId ?: getRandomUUID()
+            val eventToCreate = _viewState.value.form.toEvent(eventId)
 
             val result = modifyEventUseCase.invoke(eventToCreate, isNewEvent)
             _viewState.value = getViewStateForModifyEventResult(result)
@@ -192,13 +234,24 @@ class ModifyEventViewModel @Inject constructor(
     }
 }
 
-private fun ModifyEventForm.toEvent(): Event {
+private fun ModifyEventForm.toEvent(eventId: String): Event {
     return Event(
-        id = UUID.randomUUID().toString(),
+        id = eventId,
         title = this.title,
         tags = this.tags.toTags(),
         date = this.occurredOn,
         createdOn = LocalDateTime.now(),
+    )
+}
+
+private fun List<Tag>.toUITags(): List<UITag> {
+    return this.map(Tag::toUITag)
+}
+
+private fun Tag.toUITag(): UITag {
+    return UITag(
+        id = this.id,
+        label = this.label,
     )
 }
 

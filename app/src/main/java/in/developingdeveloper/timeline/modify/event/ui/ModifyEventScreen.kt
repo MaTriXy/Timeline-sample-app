@@ -23,12 +23,18 @@ fun ModifyEventScreen(
     navigator: DestinationsNavigator,
     resultNavigator: ResultBackNavigator<String>,
     viewModel: ModifyEventViewModel = hiltViewModel(),
+    eventId: String? = null,
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
     val coroutineScope = rememberCoroutineScope()
     val modalBottomSheetState = rememberModalBottomSheetState()
     val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(key1 = Unit) {
+        // Think of a better way to initialize the eventId.
+        viewModel.init(eventId)
+    }
 
     LaunchedEffect(key1 = viewState.isCompleted) {
         if (!viewState.isCompleted) return@LaunchedEffect

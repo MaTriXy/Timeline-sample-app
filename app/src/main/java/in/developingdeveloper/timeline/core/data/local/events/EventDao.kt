@@ -14,6 +14,10 @@ interface EventDao {
     @Query("SELECT * FROM events")
     fun getAllEvents(): Flow<List<PersistableEventWithTags>>
 
+    @Transaction
+    @Query("SELECT * FROM events WHERE event_id = :eventId")
+    suspend fun getEventById(eventId: String): PersistableEventWithTags?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addEvent(event: PersistableEvent)
 

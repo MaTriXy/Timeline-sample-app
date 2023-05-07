@@ -11,4 +11,9 @@ class DefaultEventListRepository @Inject constructor(
     override fun getAllEvents(): Flow<List<Event>> {
         return eventsDataSource.getAllEvents()
     }
+
+    @Suppress("TooGenericExceptionThrown")
+    override suspend fun getEventById(eventId: String): Event {
+        return eventsDataSource.getEventById(eventId) ?: throw Exception("Event with $eventId not found.")
+    }
 }
