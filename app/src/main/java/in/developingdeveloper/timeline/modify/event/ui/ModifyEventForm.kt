@@ -8,7 +8,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -31,6 +35,18 @@ fun ModifyEventForm(
     onModifyTagsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val titleFocusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(key1 = form.titleErrorMessage) {
+        titleFocusRequester.requestFocus()
+    }
+
+    val occurredOnFocusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(key1 = form.occurredOnErrorMessage) {
+        occurredOnFocusRequester.requestFocus()
+    }
+
     Column(
         modifier = modifier
             .fillMaxWidth(),
@@ -40,6 +56,7 @@ fun ModifyEventForm(
             onTitleValueChange = onTitleValueChange,
             titleErrorMessage = form.titleErrorMessage,
             enabled = isFormEnabled,
+            modifier = Modifier.focusRequester(titleFocusRequester),
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -49,6 +66,7 @@ fun ModifyEventForm(
             errorMessage = form.occurredOnErrorMessage,
             onValueChange = onOccurredOnValueChange,
             enabled = isFormEnabled,
+            modifier = Modifier.focusRequester(occurredOnFocusRequester),
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -66,12 +84,14 @@ private fun TitleInput(
     onTitleValueChange: (String) -> Unit,
     titleErrorMessage: String?,
     enabled: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     FormInput(
         label = stringResource(id = R.string.title),
         input = {
             TitleInputField(title, onTitleValueChange, titleErrorMessage, enabled)
         },
+        modifier = modifier,
     )
 }
 

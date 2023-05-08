@@ -1,6 +1,7 @@
 package `in`.developingdeveloper.timeline.modify.event.domain.usecases
 
 import `in`.developingdeveloper.timeline.core.domain.event.models.Event
+import `in`.developingdeveloper.timeline.modify.event.domain.exceptions.ModifyEventException
 import `in`.developingdeveloper.timeline.modify.event.domain.repositories.AddEventRepository
 import `in`.developingdeveloper.timeline.modify.event.domain.repositories.UpdateEventRepository
 import java.time.LocalDateTime
@@ -28,8 +29,12 @@ class DefaultModifyEventUseCase @Inject constructor(
     }
 
     private fun validateEvent(event: Event) {
-        if (event.title.isBlank()) throw Exception("Title is required.")
+        if (event.title.isBlank()) {
+            throw ModifyEventException.InvalidTitleException("Title is required.")
+        }
 
-        if (event.date.isAfter(LocalDateTime.now())) throw Exception("Event must be in past.")
+        if (event.date.isAfter(LocalDateTime.now())) {
+            throw ModifyEventException.InvalidOccurredOnException("Event must be in past.")
+        }
     }
 }

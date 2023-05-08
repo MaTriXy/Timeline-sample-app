@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.developingdeveloper.timeline.core.domain.event.models.Event
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
+import `in`.developingdeveloper.timeline.modify.event.domain.exceptions.ModifyEventException
 import `in`.developingdeveloper.timeline.modify.event.domain.usecases.GetEventByIdUseCase
 import `in`.developingdeveloper.timeline.modify.event.domain.usecases.ModifyEventUseCase
 import `in`.developingdeveloper.timeline.modify.event.ui.models.ModifyEventForm
@@ -93,14 +94,20 @@ class ModifyEventViewModel @Inject constructor(
 
     fun onTitleValueChange(title: String) {
         _viewState.update {
-            val updatedForm = it.form.copy(title = title)
+            val updatedForm = it.form.copy(
+                title = title,
+                titleErrorMessage = null,
+            )
             it.copy(form = updatedForm)
         }
     }
 
     fun onOccurredValueChange(occurredOn: String) {
         _viewState.update {
-            val updatedForm = it.form.copy(occurredOn = LocalDateTime.parse(occurredOn))
+            val updatedForm = it.form.copy(
+                occurredOn = LocalDateTime.parse(occurredOn),
+                occurredOnErrorMessage = null,
+            )
             it.copy(form = updatedForm)
         }
     }
@@ -193,17 +200,42 @@ class ModifyEventViewModel @Inject constructor(
                     isCompleted = true,
                 )
             },
-            onFailure = {
-                val defaultErrorMessage =
-                    if (isNewEvent) "Error storing event." else "Error updating event"
+            onFailure = { throwable ->
+                if (throwable is ModifyEventException) {
+                    val updatedForm = getUpdatedFormForFormExceptions(throwable, currentViewState)
+                    currentViewState.copy(
+                        isCompleted = false,
+                        form = updatedForm,
+                    )
+                } else {
+                    val defaultErrorMessage =
+                        if (isNewEvent) "Error storing event." else "Error updating event"
 
-                val errorMessage = it.message ?: defaultErrorMessage
-                currentViewState.copy(
-                    isCompleted = false,
-                    errorMessage = errorMessage,
-                )
+                    val errorMessage = throwable.message ?: defaultErrorMessage
+                    currentViewState.copy(
+                        isCompleted = false,
+                        errorMessage = errorMessage,
+                    )
+                }
             },
         )
+    }
+
+    private fun getUpdatedFormForFormExceptions(
+        exception: ModifyEventException,
+        currentViewState: ModifyEventViewState,
+    ): ModifyEventForm {
+        return when (exception) {
+            is ModifyEventException.InvalidTitleException ->
+                currentViewState.form.copy(
+                    titleErrorMessage = exception.message,
+                )
+
+            is ModifyEventException.InvalidOccurredOnException ->
+                currentViewState.form.copy(
+                    occurredOnErrorMessage = exception.message,
+                )
+        }
     }
 
     fun onModifyTagsCompleted() {
