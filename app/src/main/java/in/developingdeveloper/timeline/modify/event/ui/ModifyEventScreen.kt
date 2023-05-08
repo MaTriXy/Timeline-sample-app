@@ -14,6 +14,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.result.ResultBackNavigator
+import `in`.developingdeveloper.timeline.core.ui.components.onBackNavigationIconClick
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -78,6 +79,7 @@ fun ModifyEventScreen(
         onOccurredValueChange = viewModel::onOccurredValueChange,
         onModifyTagsClick = viewModel::onModifyTagsClick,
         onDoneClick = viewModel::onDoneClick,
+        onNavigationIconClick = { onBackNavigationIconClick(navigator) },
         onCancelClick = { onCancelClick(navigator) },
         onBottomModalSheetDismiss = {
             hideModalBottomSheet(
