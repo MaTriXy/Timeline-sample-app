@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.R
+import `in`.developingdeveloper.timeline.core.ui.components.BackNavigationIcon
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineStartAlignedTopAppBar
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 import `in`.developingdeveloper.timeline.modify.event.ui.components.tags.bottomsheet.TagListBottomSheetContent
@@ -39,6 +40,7 @@ fun ModifyEventContent(
     modalBottomSheetState: SheetState,
     snackbarHostState: SnackbarHostState,
     viewState: ModifyEventViewState,
+    onNavigationIconClick: () -> Unit,
     onTitleValueChange: (String) -> Unit,
     onOccurredValueChange: (String) -> Unit,
     onModifyTagsClick: () -> Unit,
@@ -49,7 +51,7 @@ fun ModifyEventContent(
 ) {
     Scaffold(
         topBar = {
-            ModifyEventTopAppBar(viewState.isNewEvent)
+            ModifyEventTopAppBar(viewState.isNewEvent, onNavigationIconClick)
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { contentPadding ->
@@ -99,9 +101,14 @@ fun ModifyEventContent(
 }
 
 @Composable
-private fun ModifyEventTopAppBar(isNewEvent: Boolean) {
+private fun ModifyEventTopAppBar(isNewEvent: Boolean, onNavigationIconClick: () -> Unit) {
     val titleRes = if (isNewEvent) R.string.add_event else R.string.edit_event
-    TimelineStartAlignedTopAppBar(title = stringResource(id = titleRes))
+    TimelineStartAlignedTopAppBar(
+        title = stringResource(id = titleRes),
+        navigationIcon = {
+            BackNavigationIcon(onNavigationIconClick)
+        },
+    )
 }
 
 @Composable
@@ -153,6 +160,7 @@ private fun ModifyEventContentPreview() {
                 modalBottomSheetState = rememberModalBottomSheetState(),
                 snackbarHostState = SnackbarHostState(),
                 viewState = viewState,
+                onNavigationIconClick = {},
                 onTitleValueChange = {},
                 onOccurredValueChange = {},
                 onModifyTagsClick = {},

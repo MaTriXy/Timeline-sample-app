@@ -51,6 +51,8 @@ fun ModifyEventForm(
             enabled = isFormEnabled,
         )
 
+        Spacer(modifier = Modifier.height(12.dp))
+
         TagsInput(
             tags = form.tags,
             onModifyTagsClick = onModifyTagsClick,
