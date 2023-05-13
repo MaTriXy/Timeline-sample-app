@@ -12,8 +12,12 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,20 +25,30 @@ import `in`.developingdeveloper.timeline.R
 import `in`.developingdeveloper.timeline.core.ui.components.FormInput
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineOutlinedTextField
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
-import `in`.developingdeveloper.timeline.modify.tag.ui.models.NewTagForm
+import `in`.developingdeveloper.timeline.modify.tag.ui.models.ModifyTagForm
 
 @Composable
-fun AddTagForm(
-    form: NewTagForm,
+fun ModifyTagForm(
+    form: ModifyTagForm,
     onLabelValueChange: (String) -> Unit,
     onAddClick: () -> Unit,
     onCancelClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val labelFocusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(key1 = form.labelErrorMessage) {
+        if (form.labelErrorMessage != null) {
+            labelFocusRequester.requestFocus()
+        }
+    }
+
     Column(modifier = modifier) {
-        TagInput(
-            form = form,
+        LabelInput(
+            label = form.label,
             onLabelValueChange = onLabelValueChange,
+            labelErrorMessage = form.labelErrorMessage,
+            modifier = Modifier.focusRequester(labelFocusRequester),
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -47,17 +61,19 @@ fun AddTagForm(
 }
 
 @Composable
-private fun TagInput(
-    form: NewTagForm,
+private fun LabelInput(
+    label: String,
     onLabelValueChange: (String) -> Unit,
+    labelErrorMessage: String?,
     modifier: Modifier = Modifier,
 ) {
     FormInput(
         label = stringResource(id = R.string.label),
         input = {
-            TagLabelInput(
-                label = form.label,
+            LabelInputField(
+                label = label,
                 onLabelValueChange = onLabelValueChange,
+                errorMessage = labelErrorMessage,
             )
         },
         modifier = modifier,
@@ -65,14 +81,16 @@ private fun TagInput(
 }
 
 @Composable
-private fun TagLabelInput(
+private fun LabelInputField(
     label: String,
     onLabelValueChange: (String) -> Unit,
+    errorMessage: String?,
     modifier: Modifier = Modifier,
 ) {
     TimelineOutlinedTextField(
         text = label,
         onTextChange = onLabelValueChange,
+        errorMessage = errorMessage,
         modifier = modifier.fillMaxWidth(),
     )
 }
@@ -115,12 +133,12 @@ private fun Actions(
 )
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
-private fun AddTagFormPreview() {
-    val form = NewTagForm.Initial
+private fun ModifyTagFormPreview() {
+    val form = ModifyTagForm.Initial
 
     TimelineTheme {
         Surface {
-            AddTagForm(
+            ModifyTagForm(
                 form = form,
                 onLabelValueChange = {},
                 onAddClick = {},

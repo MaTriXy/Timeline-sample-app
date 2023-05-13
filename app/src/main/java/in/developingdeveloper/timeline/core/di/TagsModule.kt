@@ -10,8 +10,12 @@ import `in`.developingdeveloper.timeline.core.domain.tags.repositories.DefaultTa
 import `in`.developingdeveloper.timeline.core.domain.tags.repositories.TagRepository
 import `in`.developingdeveloper.timeline.modify.tag.domain.repositories.AddTagRepository
 import `in`.developingdeveloper.timeline.modify.tag.domain.repositories.DefaultAddTagRepository
-import `in`.developingdeveloper.timeline.modify.tag.domain.usecases.AddTagUseCase
-import `in`.developingdeveloper.timeline.modify.tag.domain.usecases.DefaultAddTagUseCase
+import `in`.developingdeveloper.timeline.modify.tag.domain.repositories.DefaultUpdateTagRepository
+import `in`.developingdeveloper.timeline.modify.tag.domain.repositories.UpdateTagRepository
+import `in`.developingdeveloper.timeline.modify.tag.domain.usecases.DefaultGetTagByIdUseCase
+import `in`.developingdeveloper.timeline.modify.tag.domain.usecases.DefaultModifyTagUseCase
+import `in`.developingdeveloper.timeline.modify.tag.domain.usecases.GetTagByIdUseCase
+import `in`.developingdeveloper.timeline.modify.tag.domain.usecases.ModifyTagUseCase
 import `in`.developingdeveloper.timeline.taglist.domain.usecases.DefaultGetAllTagsUseCase
 import `in`.developingdeveloper.timeline.taglist.domain.usecases.GetAllTagsUseCase
 import javax.inject.Singleton
@@ -34,6 +38,12 @@ abstract class TagsModule {
 
     @Binds
     @Singleton
+    abstract fun bindGetTagByIdUseCase(
+        getTagByIdUseCase: DefaultGetTagByIdUseCase,
+    ): GetTagByIdUseCase
+
+    @Binds
+    @Singleton
     abstract fun bindTagDataSource(
         roomTagDataSource: RoomTagDataSource,
     ): TagDataSource
@@ -46,7 +56,13 @@ abstract class TagsModule {
 
     @Binds
     @Singleton
-    abstract fun bindAddTagUseCase(
-        addTagUseCase: DefaultAddTagUseCase,
-    ): AddTagUseCase
+    abstract fun bindUpdateTagRepository(
+        updateTagRepository: DefaultUpdateTagRepository,
+    ): UpdateTagRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindModifyTagUseCase(
+        addTagUseCase: DefaultModifyTagUseCase,
+    ): ModifyTagUseCase
 }

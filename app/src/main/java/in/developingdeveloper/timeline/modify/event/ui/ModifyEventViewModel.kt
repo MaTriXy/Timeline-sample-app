@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.developingdeveloper.timeline.core.domain.event.models.Event
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
+import `in`.developingdeveloper.timeline.core.utils.generateRandomUUID
 import `in`.developingdeveloper.timeline.modify.event.domain.exceptions.ModifyEventException
 import `in`.developingdeveloper.timeline.modify.event.domain.usecases.GetEventByIdUseCase
 import `in`.developingdeveloper.timeline.modify.event.domain.usecases.ModifyEventUseCase
@@ -23,7 +24,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -83,10 +83,8 @@ class ModifyEventViewModel @Inject constructor(
     }
 
     private fun setEventId(eventId: String?) {
-        this.eventId = eventId ?: getRandomUUID()
+        this.eventId = eventId ?: generateRandomUUID()
     }
-
-    private fun getRandomUUID() = UUID.randomUUID().toString()
 
     private fun setIsNewEvent(isNewEvent: Boolean) {
         this.isNewEvent = isNewEvent
@@ -181,7 +179,7 @@ class ModifyEventViewModel @Inject constructor(
         viewModelScope.launch {
             _viewState.update { it.copy(isLoading = true, formEnabled = false) }
 
-            val eventId = eventId ?: getRandomUUID()
+            val eventId = eventId ?: generateRandomUUID()
             val eventToCreate = _viewState.value.form.toEvent(eventId)
 
             val result = modifyEventUseCase.invoke(eventToCreate, isNewEvent)

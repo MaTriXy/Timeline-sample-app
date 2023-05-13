@@ -29,6 +29,7 @@ fun TagListContent(
     snackbarHostState: SnackbarHostState,
     viewState: TagListViewState,
     onNavigationIconClick: () -> Unit,
+    onTagListItemClick: (UITag) -> Unit,
     onAddTagClick: () -> Unit,
 ) {
     Scaffold(
@@ -47,7 +48,10 @@ fun TagListContent(
                 .padding(contentPadding)
                 .fillMaxSize(),
         ) {
-            TagList(viewState)
+            TagList(
+                viewState = viewState,
+                onTagListItemClick = onTagListItemClick,
+            )
         }
     }
 }
@@ -95,6 +99,7 @@ private fun TagListContentPreview() {
                 snackbarHostState = SnackbarHostState(),
                 viewState = viewState,
                 onNavigationIconClick = {},
+                onTagListItemClick = {},
                 onAddTagClick = {},
             )
         }

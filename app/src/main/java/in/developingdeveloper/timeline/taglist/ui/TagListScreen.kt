@@ -12,14 +12,15 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.result.NavResult
 import com.ramcosta.composedestinations.result.ResultRecipient
 import `in`.developingdeveloper.timeline.core.ui.components.onBackNavigationIconClick
-import `in`.developingdeveloper.timeline.destinations.AddTagScreenDestination
+import `in`.developingdeveloper.timeline.destinations.ModifyTagScreenDestination
+import `in`.developingdeveloper.timeline.taglist.ui.models.UITag
 import kotlinx.coroutines.launch
 
 @Composable
 @Destination
 fun TagListScreen(
     navigator: DestinationsNavigator,
-    addTagResultRecipient: ResultRecipient<AddTagScreenDestination, String>,
+    addTagResultRecipient: ResultRecipient<ModifyTagScreenDestination, String>,
     viewModel: TagListViewModel = hiltViewModel(),
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -42,10 +43,15 @@ fun TagListScreen(
         snackbarHostState = snackbarHostState,
         viewState = viewState,
         onNavigationIconClick = { onBackNavigationIconClick(navigator) },
+        onTagListItemClick = { onTagListItemClick(navigator, it) },
         onAddTagClick = { onAddTagClick(navigator) },
     )
 }
 
+fun onTagListItemClick(navigator: DestinationsNavigator, tag: UITag) {
+    navigator.navigate(ModifyTagScreenDestination(tag.id))
+}
+
 private fun onAddTagClick(navigator: DestinationsNavigator) {
-    navigator.navigate(AddTagScreenDestination)
+    navigator.navigate(ModifyTagScreenDestination())
 }
