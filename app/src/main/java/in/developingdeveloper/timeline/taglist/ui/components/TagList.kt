@@ -43,7 +43,10 @@ fun TagList(
 }
 
 @Composable
-fun TagList(viewState: TagListViewState) {
+fun TagList(
+    viewState: TagListViewState,
+    onTagListItemClick: (UITag) -> Unit,
+) {
     when {
         viewState.isRefreshing -> {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
@@ -67,7 +70,7 @@ fun TagList(viewState: TagListViewState) {
     }
 
     if (viewState.shouldDisplayTags) {
-        TagList(tags = viewState.tags)
+        TagList(tags = viewState.tags, onTagClick = onTagListItemClick)
     }
 }
 

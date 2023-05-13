@@ -19,11 +19,16 @@ fun ModifyTagScreen(
     navigator: DestinationsNavigator,
     resultNavigator: ResultBackNavigator<String>,
     viewModel: ModifyTagViewModel = hiltViewModel(),
+    tagId: String? = null,
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.init(tagId)
+    }
 
     LaunchedEffect(viewState.isCompleted) {
         resultNavigator.navigateBack(
