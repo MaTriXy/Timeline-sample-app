@@ -16,6 +16,9 @@ interface TagDao {
     @Query("SELECT * FROM tags")
     fun getAllTags(): Flow<List<PersistableTag>>
 
+    @Query("SELECT * FROM tags  WHERE tag_id = :tagId")
+    suspend fun getTagById(tagId: String): PersistableTag?
+
     @Update
     suspend fun updateTag(tag: PersistableTag)
 }
