@@ -26,7 +26,10 @@ fun TagListItem(
     ) {
         Spacer(modifier = Modifier.height(8.dp))
 
-        TagLabel(label = tag.label)
+        TagLabel(
+            label = tag.label,
+            modifier = Modifier.padding(4.dp),
+        )
 
         Divider(
             color = Color.LightGray.copy(alpha = 0.4f),
