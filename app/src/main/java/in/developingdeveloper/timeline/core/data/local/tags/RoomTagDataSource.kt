@@ -16,6 +16,11 @@ class RoomTagDataSource @Inject constructor(
         return tagDao.getAllTags()
             .map(List<PersistableTag>::toTags)
     }
+
+    override suspend fun updateTag(tag: Tag) {
+        val persistableTag = tag.toPersistableTag()
+        tagDao.updateTag(persistableTag)
+    }
 }
 
 private fun List<PersistableTag>.toTags(): List<Tag> {

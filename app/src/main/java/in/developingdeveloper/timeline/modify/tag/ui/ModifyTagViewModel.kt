@@ -75,7 +75,7 @@ class ModifyTagViewModel @Inject constructor(
         )
 
         viewModelScope.launch {
-            val result = modifyTagUseCase.invoke(tagToCreate)
+            val result = modifyTagUseCase.invoke(tagToCreate, false)
             _viewState.value = getViewStateForModifyTagResult(result)
         }
     }

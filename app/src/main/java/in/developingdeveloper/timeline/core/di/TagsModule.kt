@@ -10,6 +10,8 @@ import `in`.developingdeveloper.timeline.core.domain.tags.repositories.DefaultTa
 import `in`.developingdeveloper.timeline.core.domain.tags.repositories.TagRepository
 import `in`.developingdeveloper.timeline.modify.tag.domain.repositories.AddTagRepository
 import `in`.developingdeveloper.timeline.modify.tag.domain.repositories.DefaultAddTagRepository
+import `in`.developingdeveloper.timeline.modify.tag.domain.repositories.DefaultUpdateTagRepository
+import `in`.developingdeveloper.timeline.modify.tag.domain.repositories.UpdateTagRepository
 import `in`.developingdeveloper.timeline.modify.tag.domain.usecases.DefaultModifyTagUseCase
 import `in`.developingdeveloper.timeline.modify.tag.domain.usecases.ModifyTagUseCase
 import `in`.developingdeveloper.timeline.taglist.domain.usecases.DefaultGetAllTagsUseCase
@@ -43,6 +45,12 @@ abstract class TagsModule {
     abstract fun bindAddTagRepository(
         addTagRepository: DefaultAddTagRepository,
     ): AddTagRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUpdateTagRepository(
+        updateTagRepository: DefaultUpdateTagRepository,
+    ): UpdateTagRepository
 
     @Binds
     @Singleton
