@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.core.ui.theme.Gray
 import `in`.developingdeveloper.timeline.core.ui.theme.TagBackground
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
+import `in`.developingdeveloper.timeline.core.utils.formatDateForUI
 import `in`.developingdeveloper.timeline.eventlist.ui.models.UIEvent
 import java.time.LocalDateTime
 
@@ -44,7 +45,7 @@ fun EventListItem(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Text(
-                    text = "#${event.id}",
+                    text = event.date.formatDateForUI(),
                     color = if (isSystemInDarkTheme()) {
                         MaterialTheme.colorScheme.onSurface
                     } else {
