@@ -5,9 +5,9 @@ import `in`.developingdeveloper.timeline.modify.tag.domain.repositories.AddTagRe
 import javax.inject.Inject
 
 @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown")
-class DefaultAddTagUseCase @Inject constructor(
+class DefaultModifyTagUseCase @Inject constructor(
     private val addTagRepository: AddTagRepository,
-) : AddTagUseCase {
+) : ModifyTagUseCase {
     override suspend operator fun invoke(tag: Tag): Result<Unit> {
         return try {
             validate(tag)

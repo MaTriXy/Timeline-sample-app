@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
-import `in`.developingdeveloper.timeline.modify.tag.domain.usecases.AddTagUseCase
-import `in`.developingdeveloper.timeline.modify.tag.ui.models.AddTagViewState
+import `in`.developingdeveloper.timeline.modify.tag.domain.usecases.ModifyTagUseCase
+import `in`.developingdeveloper.timeline.modify.tag.ui.models.ModifyTagViewState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -14,14 +14,14 @@ import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
-class AddTagViewModel @Inject constructor(
-    private val addTagUseCase: AddTagUseCase,
+class ModifyTagViewModel @Inject constructor(
+    private val modifyTagUseCase: ModifyTagUseCase,
 ) : ViewModel() {
 
-    private val _viewState = MutableStateFlow(AddTagViewState.Initial)
+    private val _viewState = MutableStateFlow(ModifyTagViewState.Initial)
     val viewState = _viewState.asStateFlow()
 
-    private fun getViewStateForAddTagResult(result: Result<Unit>): AddTagViewState {
+    private fun getViewStateForModifyTagResult(result: Result<Unit>): ModifyTagViewState {
         val currentViewState = _viewState.value
 
         return result.fold(
@@ -63,8 +63,8 @@ class AddTagViewModel @Inject constructor(
         )
 
         viewModelScope.launch {
-            val result = addTagUseCase.invoke(tagToCreate)
-            _viewState.value = getViewStateForAddTagResult(result)
+            val result = modifyTagUseCase.invoke(tagToCreate)
+            _viewState.value = getViewStateForModifyTagResult(result)
         }
     }
 }

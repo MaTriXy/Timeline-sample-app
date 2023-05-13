@@ -15,12 +15,12 @@ import `in`.developingdeveloper.timeline.R
 import `in`.developingdeveloper.timeline.core.ui.components.BackNavigationIcon
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineStartAlignedTopAppBar
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
-import `in`.developingdeveloper.timeline.modify.tag.ui.models.AddTagViewState
+import `in`.developingdeveloper.timeline.modify.tag.ui.models.ModifyTagViewState
 
 @Composable
-fun AddTagContent(
+fun ModifyTagContent(
     snackbarHostState: SnackbarHostState,
-    viewState: AddTagViewState,
+    viewState: ModifyTagViewState,
     onNavigationIconClick: () -> Unit,
     onLabelValueChange: (String) -> Unit,
     onAddClick: () -> Unit,
@@ -28,11 +28,11 @@ fun AddTagContent(
 ) {
     Scaffold(
         topBar = {
-            AddTagTopBar(onNavigationIconClick)
+            ModifyTagTopBar(onNavigationIconClick)
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { paddingValues ->
-        AddTagForm(
+        ModifyTagForm(
             form = viewState.form,
             onLabelValueChange = onLabelValueChange,
             onAddClick = onAddClick,
@@ -45,7 +45,7 @@ fun AddTagContent(
 }
 
 @Composable
-private fun AddTagTopBar(onNavigationIconClick: () -> Unit) {
+private fun ModifyTagTopBar(onNavigationIconClick: () -> Unit) {
     TimelineStartAlignedTopAppBar(
         title = stringResource(id = R.string.add_tag),
         navigationIcon = {
@@ -64,12 +64,12 @@ private fun AddTagTopBar(onNavigationIconClick: () -> Unit) {
 )
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
-private fun AddTagContentPreview() {
-    val viewState = AddTagViewState.Initial
+private fun ModifyTagContentPreview() {
+    val viewState = ModifyTagViewState.Initial
 
     TimelineTheme {
         Surface {
-            AddTagContent(
+            ModifyTagContent(
                 snackbarHostState = SnackbarHostState(),
                 viewState = viewState,
                 onNavigationIconClick = {},

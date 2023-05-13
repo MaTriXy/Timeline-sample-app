@@ -15,10 +15,10 @@ import `in`.developingdeveloper.timeline.core.ui.components.onBackNavigationIcon
 
 @Composable
 @Destination
-fun AddTagScreen(
+fun ModifyTagScreen(
     navigator: DestinationsNavigator,
     resultNavigator: ResultBackNavigator<String>,
-    viewModel: AddTagViewModel = hiltViewModel(),
+    viewModel: ModifyTagViewModel = hiltViewModel(),
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
@@ -39,7 +39,7 @@ fun AddTagScreen(
         snackbarHostState.showSnackbar(errorMessage)
     }
 
-    AddTagContent(
+    ModifyTagContent(
         snackbarHostState = snackbarHostState,
         viewState = viewState,
         onNavigationIconClick = { onBackNavigationIconClick(navigator) },

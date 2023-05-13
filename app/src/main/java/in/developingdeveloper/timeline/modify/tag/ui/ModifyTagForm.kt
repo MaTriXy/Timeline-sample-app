@@ -21,11 +21,11 @@ import `in`.developingdeveloper.timeline.R
 import `in`.developingdeveloper.timeline.core.ui.components.FormInput
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineOutlinedTextField
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
-import `in`.developingdeveloper.timeline.modify.tag.ui.models.NewTagForm
+import `in`.developingdeveloper.timeline.modify.tag.ui.models.ModifyTagForm
 
 @Composable
-fun AddTagForm(
-    form: NewTagForm,
+fun ModifyTagForm(
+    form: ModifyTagForm,
     onLabelValueChange: (String) -> Unit,
     onAddClick: () -> Unit,
     onCancelClick: () -> Unit,
@@ -48,7 +48,7 @@ fun AddTagForm(
 
 @Composable
 private fun TagInput(
-    form: NewTagForm,
+    form: ModifyTagForm,
     onLabelValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -115,12 +115,12 @@ private fun Actions(
 )
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
-private fun AddTagFormPreview() {
-    val form = NewTagForm.Initial
+private fun ModifyTagFormPreview() {
+    val form = ModifyTagForm.Initial
 
     TimelineTheme {
         Surface {
-            AddTagForm(
+            ModifyTagForm(
                 form = form,
                 onLabelValueChange = {},
                 onAddClick = {},
