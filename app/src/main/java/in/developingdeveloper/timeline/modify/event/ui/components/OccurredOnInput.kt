@@ -21,11 +21,11 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import `in`.developingdeveloper.timeline.R
 import `in`.developingdeveloper.timeline.core.ui.components.FormInput
 import `in`.developingdeveloper.timeline.core.ui.components.TimelineOutlinedTextField
+import `in`.developingdeveloper.timeline.core.utils.formatDateForUI
 import `in`.developingdeveloper.timeline.core.utils.toEpochMilli
 import `in`.developingdeveloper.timeline.core.utils.toLocalDate
 import `in`.developingdeveloper.timeline.core.utils.toLocalDateTime
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun OccurredOnInput(
@@ -115,9 +115,4 @@ private fun OccurredOnInputField(
         readOnly = true,
         interactionSource = occurredOnInteractionSource,
     )
-}
-
-private fun LocalDateTime.formatDateForUI(): String {
-    val datTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
-    return this.format(datTimeFormatter) ?: this.toString()
 }

@@ -1,7 +1,6 @@
 package `in`.developingdeveloper.timeline.eventlist.ui.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,9 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import `in`.developingdeveloper.timeline.core.ui.components.tag.TagLabel
 import `in`.developingdeveloper.timeline.core.ui.theme.Gray
-import `in`.developingdeveloper.timeline.core.ui.theme.TagBackground
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
+import `in`.developingdeveloper.timeline.core.utils.formatDateForUI
 import `in`.developingdeveloper.timeline.eventlist.ui.models.UIEvent
 import java.time.LocalDateTime
 
@@ -44,7 +44,7 @@ fun EventListItem(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Text(
-                    text = "#${event.id}",
+                    text = event.date.formatDateForUI(),
                     color = if (isSystemInDarkTheme()) {
                         MaterialTheme.colorScheme.onSurface
                     } else {
@@ -64,17 +64,9 @@ fun EventListItem(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 event.tags.forEach { tag ->
-                    Text(
-                        text = tag,
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.background(
-                            color =
-                            if (isSystemInDarkTheme()) {
-                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-                            } else {
-                                TagBackground
-                            },
-                        ),
+                    TagLabel(
+                        label = tag,
+                        textStyle = MaterialTheme.typography.bodySmall,
                     )
                 }
             }

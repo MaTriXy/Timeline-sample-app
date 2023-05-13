@@ -93,7 +93,10 @@ private fun Tags(
             .padding(12.dp),
     ) {
         tags.forEach {
-            TagLabel(label = it)
+            TagLabel(
+                label = it,
+                modifier = Modifier.padding(4.dp),
+            )
         }
     }
 }
