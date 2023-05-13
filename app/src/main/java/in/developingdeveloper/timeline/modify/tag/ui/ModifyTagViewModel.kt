@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
+import `in`.developingdeveloper.timeline.modify.tag.domain.exceptions.ModifyTagException
 import `in`.developingdeveloper.timeline.modify.tag.domain.usecases.ModifyTagUseCase
 import `in`.developingdeveloper.timeline.modify.tag.ui.models.ModifyTagViewState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,14 +33,25 @@ class ModifyTagViewModel @Inject constructor(
                     isCompleted = true,
                 )
             },
-            onFailure = {
-                val message = it.message ?: "Something went wrong."
+            onFailure = { throwable ->
 
-                currentViewState.copy(
-                    isLoading = false,
-                    isFormEnabled = true,
-                    errorMessage = message,
-                )
+                when (throwable) {
+                    is ModifyTagException.InvalidLabelException -> {
+                        val updatedForm =
+                            currentViewState.form.copy(labelErrorMessage = throwable.message)
+                        currentViewState.copy(form = updatedForm)
+                    }
+
+                    else -> {
+                        val message = throwable.message ?: "Something went wrong."
+
+                        currentViewState.copy(
+                            isLoading = false,
+                            isFormEnabled = true,
+                            errorMessage = message,
+                        )
+                    }
+                }
             },
         )
     }

@@ -1,6 +1,7 @@
 package `in`.developingdeveloper.timeline.modify.tag.domain.usecases
 
 import `in`.developingdeveloper.timeline.core.domain.tags.models.Tag
+import `in`.developingdeveloper.timeline.modify.tag.domain.exceptions.ModifyTagException
 import `in`.developingdeveloper.timeline.modify.tag.domain.repositories.AddTagRepository
 import javax.inject.Inject
 
@@ -20,8 +21,10 @@ class DefaultModifyTagUseCase @Inject constructor(
     }
 
     private fun validate(tag: Tag) {
-        if (tag.id.isBlank()) throw Exception("Id is required.")
+        if (tag.id.isBlank()) throw ModifyTagException.InvalidIdException("Id is required.")
 
-        if (tag.label.isBlank()) throw Exception("Label is required.")
+        if (tag.label.isBlank()) {
+            throw ModifyTagException.InvalidLabelException("Label is required.")
+        }
     }
 }
