@@ -1,16 +1,27 @@
 package `in`.developingdeveloper.timeline.settings.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.outlined.Sell
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,7 +44,19 @@ fun SettingsListItem(
     ) {
         Spacer(modifier = Modifier.height(8.dp))
 
-        SettingsLabel(label = settingsItem.label.getString())
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            LeadingIcon()
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Label(label = settingsItem.label.getString())
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            NavigateNextIcon()
+        }
 
         Divider(
             color = Color.LightGray.copy(alpha = 0.4f),
@@ -44,7 +67,25 @@ fun SettingsListItem(
 }
 
 @Composable
-private fun SettingsLabel(
+private fun LeadingIcon() {
+    Icon(
+        imageVector = Icons.Outlined.Sell,
+        contentDescription = null,
+        modifier = Modifier
+            .background(
+                color = if (isSystemInDarkTheme()) {
+                    MaterialTheme.colorScheme.surface
+                } else {
+                    Color.LightGray
+                },
+                shape = CircleShape,
+            )
+            .padding(8.dp),
+    )
+}
+
+@Composable
+private fun Label(
     label: String,
     modifier: Modifier = Modifier,
 ) {
@@ -52,6 +93,11 @@ private fun SettingsLabel(
         text = label,
         modifier = modifier,
     )
+}
+
+@Composable
+private fun NavigateNextIcon() {
+    Icon(imageVector = Icons.Default.ChevronRight, contentDescription = null)
 }
 
 @Preview(
