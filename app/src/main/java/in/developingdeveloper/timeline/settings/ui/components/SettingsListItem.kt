@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.core.ui.models.UiText
@@ -33,13 +35,13 @@ import `in`.developingdeveloper.timeline.settings.ui.models.UiSetting
 
 @Composable
 fun SettingsListItem(
-    settingsItem: UiSetting,
+    setting: UiSetting,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clickable(onClick = settingsItem.onClick)
+            .clickable(onClick = setting.onClick)
             .padding(horizontal = 16.dp),
     ) {
         Spacer(modifier = Modifier.height(8.dp))
@@ -47,11 +49,13 @@ fun SettingsListItem(
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            LeadingIcon()
+            if (setting.leadingIcon != null) {
+                LeadingIcon(setting.leadingIcon)
 
-            Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(8.dp))
+            }
 
-            Label(label = settingsItem.label.getString())
+            Label(label = setting.label.getString())
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -67,9 +71,9 @@ fun SettingsListItem(
 }
 
 @Composable
-private fun LeadingIcon() {
+private fun LeadingIcon(imageVector: ImageVector) {
     Icon(
-        imageVector = Icons.Outlined.Sell,
+        imageVector = imageVector,
         contentDescription = null,
         modifier = Modifier
             .background(
@@ -118,7 +122,13 @@ private fun SettingsListItemPreview() {
 
     TimelineTheme {
         Surface {
-            SettingsListItem(settingsItem = item)
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(16.dp),
+            ) {
+                SettingsListItem(setting = item)
+                SettingsListItem(setting = item.copy(leadingIcon = Icons.Outlined.Sell))
+            }
         }
     }
 }

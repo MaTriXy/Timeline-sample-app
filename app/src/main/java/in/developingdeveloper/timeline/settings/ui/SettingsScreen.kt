@@ -1,5 +1,7 @@
 package `in`.developingdeveloper.timeline.settings.ui
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Sell
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import com.ramcosta.composedestinations.annotation.Destination
@@ -24,7 +26,8 @@ fun SettingsScreen(navigator: DestinationsNavigator) {
 private fun getUiSettings(navigator: DestinationsNavigator): List<UiSetting> {
     return listOf(
         UiSetting(
-            UiText.ResourceText(value = R.string.tags),
+            label = UiText.ResourceText(value = R.string.tags),
+            leadingIcon = Icons.Outlined.Sell,
             onClick = {
                 navigator.navigate(TagListScreenDestination)
             },
