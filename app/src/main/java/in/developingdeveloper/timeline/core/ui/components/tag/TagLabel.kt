@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import `in`.developingdeveloper.timeline.core.ui.theme.TagBackground
+import `in`.developingdeveloper.timeline.core.ui.theme.Platinum
 
 @Composable
 fun TagLabel(
@@ -26,7 +26,7 @@ fun TagLabel(
                 color = if (isSystemInDarkTheme()) {
                     MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
                 } else {
-                    TagBackground
+                    Platinum
                 },
                 shape = RoundedCornerShape(28.dp),
             )

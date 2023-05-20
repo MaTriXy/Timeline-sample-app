@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import `in`.developingdeveloper.timeline.core.ui.models.UiText
 import `in`.developingdeveloper.timeline.core.ui.models.getString
+import `in`.developingdeveloper.timeline.core.ui.theme.Platinum
 import `in`.developingdeveloper.timeline.core.ui.theme.TimelineTheme
 import `in`.developingdeveloper.timeline.settings.ui.models.UiSetting
 
@@ -80,7 +81,7 @@ private fun LeadingIcon(imageVector: ImageVector) {
                 color = if (isSystemInDarkTheme()) {
                     MaterialTheme.colorScheme.surface
                 } else {
-                    Color.LightGray
+                    Platinum
                 },
                 shape = CircleShape,
             )
