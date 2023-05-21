@@ -3,6 +3,7 @@ package `in`.developingdeveloper.timeline.settings.ui
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Numbers
 import androidx.compose.material.icons.outlined.Sell
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -44,6 +45,7 @@ private fun getUiSettings(
         UiSetting.WithValue(
             label = UiText.ResourceText(value = R.string.app_version),
             value = UiText.StringText(value = versionName),
+            leadingIcon = Icons.Default.Numbers,
         ),
     )
 }

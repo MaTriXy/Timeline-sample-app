@@ -6,7 +6,7 @@ import `in`.developingdeveloper.timeline.core.ui.models.UiText
 sealed class UiSetting(
     open val label: UiText,
     open val onClick: () -> Unit = {},
-    open val leadingIcon: ImageVector? = null,
+    open val leadingIcon: ImageVector,
 ) {
     data class WithNavigation(
         override val label: UiText,
@@ -21,7 +21,9 @@ sealed class UiSetting(
     data class WithValue(
         override val label: UiText,
         val value: UiText,
+        override val leadingIcon: ImageVector,
     ) : UiSetting(
         label = label,
+        leadingIcon = leadingIcon,
     )
 }

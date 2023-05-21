@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Numbers
 import androidx.compose.material.icons.outlined.Sell
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -68,7 +69,7 @@ private fun LeadingIcon(imageVector: ImageVector) {
                     Modifier
                 } else {
                     Modifier.background(
-                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.06f),
                         shape = CircleShape,
                     )
                 },
@@ -145,6 +146,10 @@ private fun LabelAndValueItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier,
     ) {
+        LeadingIcon(setting.leadingIcon)
+
+        Spacer(modifier = Modifier.width(8.dp))
+
         Label(label = setting.label.getString())
 
         Spacer(modifier = Modifier.weight(1f))
@@ -173,6 +178,7 @@ private fun SettingsListItemPreview() {
     val valueItem = UiSetting.WithValue(
         label = UiText.StringText("Version"),
         value = UiText.StringText("1.2.3"),
+        leadingIcon = Icons.Default.Numbers,
     )
 
     TimelineTheme {
