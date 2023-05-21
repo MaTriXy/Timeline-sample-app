@@ -1,8 +1,29 @@
 package `in`.developingdeveloper.timeline.settings.ui.models
 
+import androidx.compose.ui.graphics.vector.ImageVector
 import `in`.developingdeveloper.timeline.core.ui.models.UiText
 
-data class UiSetting(
-    val label: UiText,
-    val onClick: () -> Unit,
-)
+sealed class UiSetting(
+    open val label: UiText,
+    open val onClick: () -> Unit = {},
+    open val leadingIcon: ImageVector,
+) {
+    data class WithNavigation(
+        override val label: UiText,
+        override val leadingIcon: ImageVector,
+        override val onClick: () -> Unit,
+    ) : UiSetting(
+        label = label,
+        onClick = onClick,
+        leadingIcon = leadingIcon,
+    )
+
+    data class WithValue(
+        override val label: UiText,
+        val value: UiText,
+        override val leadingIcon: ImageVector,
+    ) : UiSetting(
+        label = label,
+        leadingIcon = leadingIcon,
+    )
+}
