@@ -25,7 +25,7 @@ fun SettingsScreen(navigator: DestinationsNavigator) {
 
 private fun getUiSettings(navigator: DestinationsNavigator): List<UiSetting> {
     return listOf(
-        UiSetting(
+        UiSetting.WithNavigation(
             label = UiText.ResourceText(value = R.string.tags),
             leadingIcon = Icons.Outlined.Sell,
             onClick = {

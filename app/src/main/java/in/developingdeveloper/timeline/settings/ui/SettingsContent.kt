@@ -3,6 +3,8 @@ package `in`.developingdeveloper.timeline.settings.ui
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Sell
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -53,8 +55,9 @@ fun SettingsContent(
 @Suppress("UnusedPrivateMember", "MagicNumber")
 private fun SettingsContentPreview() {
     val settings = (1..10).map {
-        UiSetting(
+        UiSetting.WithNavigation(
             label = UiText.StringText("Label #$it"),
+            leadingIcon = Icons.Outlined.Sell,
             onClick = {},
         )
     }

@@ -47,21 +47,7 @@ fun SettingsListItem(
     ) {
         Spacer(modifier = Modifier.height(8.dp))
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            if (setting.leadingIcon != null) {
-                LeadingIcon(setting.leadingIcon)
-
-                Spacer(modifier = Modifier.width(8.dp))
-            }
-
-            Label(label = setting.label.getString())
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            NavigateNextIcon()
-        }
+        ListItemContent(setting)
 
         Divider(
             color = Color.LightGray.copy(alpha = 0.4f),
@@ -105,6 +91,37 @@ private fun NavigateNextIcon() {
     Icon(imageVector = Icons.Default.ChevronRight, contentDescription = null)
 }
 
+@Composable
+private fun ListItemContent(
+    setting: UiSetting,
+) {
+    when (setting) {
+        is UiSetting.WithNavigation -> NavigationItem(setting = setting)
+        is UiSetting.WithValue -> TODO()
+    }
+}
+
+@Composable
+private fun NavigationItem(
+    setting: UiSetting.WithNavigation,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier,
+    ) {
+        LeadingIcon(setting.leadingIcon)
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Label(label = setting.label.getString())
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        NavigateNextIcon()
+    }
+}
+
 @Preview(
     name = "Night Mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -116,8 +133,14 @@ private fun NavigateNextIcon() {
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
 private fun SettingsListItemPreview() {
-    val item = UiSetting(
+    val valueItem = UiSetting.WithValue(
         label = UiText.StringText("Tags"),
+        value = UiText.StringText(""),
+    )
+
+    val withNavigation = UiSetting.WithNavigation(
+        label = UiText.StringText("Sample"),
+        leadingIcon = Icons.Outlined.Sell,
         onClick = {},
     )
 
@@ -127,8 +150,8 @@ private fun SettingsListItemPreview() {
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.padding(16.dp),
             ) {
-                SettingsListItem(setting = item)
-                SettingsListItem(setting = item.copy(leadingIcon = Icons.Outlined.Sell))
+                SettingsListItem(setting = valueItem)
+                SettingsListItem(setting = withNavigation)
             }
         }
     }

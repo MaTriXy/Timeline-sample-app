@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Sell
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -42,7 +44,13 @@ fun SettingsList(
 @Suppress("UnusedPrivateMember", "MagicNumber")
 private fun SettingsListPreview() {
     val settings =
-        (1..10).map { UiSetting(label = UiText.StringText("Label #$it"), onClick = {}) }
+        (1..10).map {
+            UiSetting.WithNavigation(
+                label = UiText.StringText("Label #$it"),
+                leadingIcon = Icons.Outlined.Sell,
+                onClick = {},
+            )
+        }
 
     TimelineTheme {
         Surface {
