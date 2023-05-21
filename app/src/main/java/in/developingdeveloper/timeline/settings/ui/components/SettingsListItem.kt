@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.outlined.Sell
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -87,6 +88,18 @@ private fun Label(
 }
 
 @Composable
+private fun Value(
+    value: String,
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text = value,
+        modifier = modifier,
+        color = LocalContentColor.current.copy(alpha = 0.4f),
+    )
+}
+
+@Composable
 private fun NavigateNextIcon() {
     Icon(imageVector = Icons.Default.ChevronRight, contentDescription = null)
 }
@@ -97,7 +110,7 @@ private fun ListItemContent(
 ) {
     when (setting) {
         is UiSetting.WithNavigation -> NavigationItem(setting = setting)
-        is UiSetting.WithValue -> TODO()
+        is UiSetting.WithValue -> LabelAndValueItem(setting)
     }
 }
 
@@ -122,6 +135,23 @@ private fun NavigationItem(
     }
 }
 
+@Composable
+private fun LabelAndValueItem(
+    setting: UiSetting.WithValue,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier,
+    ) {
+        Label(label = setting.label.getString())
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Value(value = setting.value.getString())
+    }
+}
+
 @Preview(
     name = "Night Mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -133,15 +163,15 @@ private fun NavigationItem(
 @Composable
 @Suppress("UnusedPrivateMember", "MagicNumber")
 private fun SettingsListItemPreview() {
-    val valueItem = UiSetting.WithValue(
-        label = UiText.StringText("Tags"),
-        value = UiText.StringText(""),
-    )
-
     val withNavigation = UiSetting.WithNavigation(
         label = UiText.StringText("Sample"),
         leadingIcon = Icons.Outlined.Sell,
         onClick = {},
+    )
+
+    val valueItem = UiSetting.WithValue(
+        label = UiText.StringText("Version"),
+        value = UiText.StringText("1.2.3"),
     )
 
     TimelineTheme {
@@ -150,8 +180,8 @@ private fun SettingsListItemPreview() {
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.padding(16.dp),
             ) {
-                SettingsListItem(setting = valueItem)
                 SettingsListItem(setting = withNavigation)
+                SettingsListItem(setting = valueItem)
             }
         }
     }
