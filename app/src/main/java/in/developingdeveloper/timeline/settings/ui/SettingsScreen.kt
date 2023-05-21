@@ -1,9 +1,12 @@
 package `in`.developingdeveloper.timeline.settings.ui
 
+import android.content.Context
+import android.content.pm.PackageManager
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Sell
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import `in`.developingdeveloper.timeline.R
@@ -15,7 +18,10 @@ import `in`.developingdeveloper.timeline.settings.ui.models.UiSetting
 @Composable
 @Destination
 fun SettingsScreen(navigator: DestinationsNavigator) {
-    val settings = remember { getUiSettings(navigator) }
+    val context = LocalContext.current
+
+    val versionName = getVersionName(context).toString()
+    val settings = remember { getUiSettings(versionName, navigator) }
 
     SettingsContent(
         settings = settings,
@@ -23,7 +29,10 @@ fun SettingsScreen(navigator: DestinationsNavigator) {
     )
 }
 
-private fun getUiSettings(navigator: DestinationsNavigator): List<UiSetting> {
+private fun getUiSettings(
+    versionName: String,
+    navigator: DestinationsNavigator,
+): List<UiSetting> {
     return listOf(
         UiSetting.WithNavigation(
             label = UiText.ResourceText(value = R.string.tags),
@@ -32,5 +41,17 @@ private fun getUiSettings(navigator: DestinationsNavigator): List<UiSetting> {
                 navigator.navigate(TagListScreenDestination)
             },
         ),
+        UiSetting.WithValue(
+            label = UiText.ResourceText(value = R.string.app_version),
+            value = UiText.StringText(value = versionName),
+        ),
     )
+}
+
+@Suppress("SwallowedException")
+private fun getVersionName(context: Context) = try {
+    val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+    packageInfo.versionName
+} catch (exception: PackageManager.NameNotFoundException) {
+    null
 }

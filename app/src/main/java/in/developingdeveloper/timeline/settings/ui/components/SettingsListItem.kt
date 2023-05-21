@@ -46,9 +46,9 @@ fun SettingsListItem(
             .clickable(onClick = setting.onClick)
             .padding(horizontal = 16.dp),
     ) {
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        ListItemContent(setting)
+        Setting(setting)
 
         Divider(
             color = Color.LightGray.copy(alpha = 0.4f),
@@ -105,7 +105,7 @@ private fun NavigateNextIcon() {
 }
 
 @Composable
-private fun ListItemContent(
+private fun Setting(
     setting: UiSetting,
 ) {
     when (setting) {
