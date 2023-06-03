@@ -55,7 +55,7 @@ Thank you for considering contributing to the Timeline project! To ensure a smoo
 5. Push to the branch: `git push origin T-<issue#>/branch_name`.
 6. Open a pull request in this repository, explaining your changes and their purpose.
 
-Please adhere to the refer the architecture, code style and naming convention of the existing componnets while contributing.
+Please adhere to the architecture, code style and naming convention of the existing componnets while contributing.
 
 ## License
 The Timeline project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for more details.
